@@ -1,9 +1,6 @@
 import { EmployeeLoginData, EmployeeLoginParams, Response } from "@/types/services";
-import { request } from "../request";
+import request from "../request/axios";
 
 export const employeeLogin = (params: EmployeeLoginParams) => {
-	return request<Response<EmployeeLoginData>>("/admin/employee/login", {
-		method: "POST",
-		body: JSON.stringify(params),
-	});
+	return request.post<Response<EmployeeLoginData>>("/admin/employee/login", params);
 };

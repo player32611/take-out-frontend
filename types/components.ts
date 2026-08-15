@@ -3,3 +3,11 @@ export interface LoginFormData {
 	password: string;
 	remember: boolean;
 }
+
+export interface LoginFormParams {
+	handleChangeState: () => void;
+}
+
+export interface RegisterFormParams {
+	handleChangeState: () => void;
+}
