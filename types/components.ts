@@ -1,10 +1,26 @@
+import { Status } from "./common";
+
 export interface CategoryTableData {
 	key: number;
 	name: string;
 	type: number;
 	sort: number;
-	status: number;
+	status: Status;
 	update_time: string;
+}
+
+export interface EmployeeAddModelParams {
+	open: boolean;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface EmployeeAddModelData {
+	name: string;
+	username: string;
+	phone: { prefix: string; phone: string };
+	sex: "男" | "女";
+	id_number: string;
 }
 
 export interface EmployeeTableData {
@@ -12,7 +28,7 @@ export interface EmployeeTableData {
 	name: string;
 	username: string;
 	phone: string;
-	status: number;
+	status: Status;
 	update_time: string;
 }
 

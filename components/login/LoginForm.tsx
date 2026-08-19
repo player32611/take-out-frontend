@@ -2,7 +2,7 @@
 
 import { employeeLogin } from "@/services";
 import type { LoginFormData, LoginFormParams } from "@/types/components";
-import { setToken } from "@/utils/auth";
+import { setToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
@@ -12,16 +12,13 @@ const LoginForm = ({ handleChangeState }: LoginFormParams) => {
 	const router = useRouter();
 	const [form] = Form.useForm();
 
-	const onFinish = async (values: LoginFormData) => {
-		const response = await employeeLogin({ username: values.username, password: values.password });
-		const result = response.data;
-		console.log(result.data);
-		if (result.data) {
-			setToken(result.data.token);
-			router.push("/");
-		} else {
-			form.setFields([{ name: "password", errors: [result.msg] }]);
-		}
+	const onFinish = (values: LoginFormData) => {
+		employeeLogin({ username: values.username, password: values.password }).then(res => {
+			if (res.data) {
+				setToken(res.data.token);
+				router.push("/");
+			} else form.setFields([{ name: "password", errors: [res.msg] }]);
+		});
 	};
 
 	return (

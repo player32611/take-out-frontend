@@ -1,0 +1,15 @@
+.status {
+	&::before {
+		content: "";
+		width: 0.4rem;
+		background-color: #ff0000;
+		border-radius: 0.2rem;
+		aspect-ratio: 1 / 1;
+	}
+
+	&.active {
+		&::before {
+			background-color: #008000;
+		}
+	}
+}

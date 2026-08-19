@@ -1,7 +1,8 @@
 import { Space, Table } from "antd";
-
 import type { TableProps } from "antd";
-import { EmployeeTableData } from "@/types/components";
+import type { EmployeeTableData } from "@/types/components";
+
+import Status from "../common/Status/Status";
 
 const columns: TableProps<EmployeeTableData>["columns"] = [
 	{
@@ -24,6 +25,7 @@ const columns: TableProps<EmployeeTableData>["columns"] = [
 		title: "账号状态",
 		dataIndex: "status",
 		key: "status",
+		render: status => <Status status={status}></Status>,
 	},
 	{
 		title: "最后操作时间",
@@ -49,7 +51,7 @@ const EmployeeTable = () => {
 		name: `员工 ${index}`,
 		username: `员工 ${index}`,
 		phone: `${index}`,
-		status: index,
+		status: 0,
 		update_time: `${index}`,
 	}));
 

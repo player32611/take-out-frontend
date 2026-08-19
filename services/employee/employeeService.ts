@@ -1,6 +1,15 @@
-import { EmployeeLoginData, EmployeeLoginParams, Response } from "@/types/services";
-import request from "../request/axios";
+import {
+	EmployeeAddData,
+	EmployeeAddParams,
+	EmployeeLoginData,
+	EmployeeLoginParams,
+} from "@/types/services";
+import { post } from "../request/axios";
+
+export const employeeAdd = (params: EmployeeAddParams) => {
+	return post<EmployeeAddData>("/admin/employee", params);
+};
 
 export const employeeLogin = (params: EmployeeLoginParams) => {
-	return request.post<Response<EmployeeLoginData>>("/admin/employee/login", params);
+	return post<EmployeeLoginData>("/admin/employee/login", params);
 };

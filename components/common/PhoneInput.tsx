@@ -49,7 +49,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ id, value = {}, onChange }) => 
 						{ label: "+87", value: "87" },
 					]}
 				/>
-				<Input value={value.phone || phone} onChange={onPhoneChange} style={{ width: "100%" }} />
+				<Input
+					value={value.phone || phone}
+					onChange={onPhoneChange}
+					style={{ width: "100%" }}
+					placeholder="请输入手机号"
+				/>
 			</Space.Compact>
 		</span>
 	);

@@ -1,7 +1,8 @@
 import { Space, Table } from "antd";
-
 import type { TableProps } from "antd";
 import type { CategoryTableData } from "@/types/components";
+
+import Status from "../common/Status/Status";
 
 const columns: TableProps<CategoryTableData>["columns"] = [
 	{
@@ -24,6 +25,7 @@ const columns: TableProps<CategoryTableData>["columns"] = [
 		title: "状态",
 		dataIndex: "status",
 		key: "status",
+		render: status => <Status status={status}></Status>,
 	},
 	{
 		title: "操作时间",
@@ -37,8 +39,8 @@ const columns: TableProps<CategoryTableData>["columns"] = [
 		render: () => (
 			<Space size="medium">
 				<a>修改</a>
-				<a>删除</a>
-				<a>禁用</a>
+				<a style={{ color: "red" }}>删除</a>
+				<a style={{ color: "red" }}>禁用</a>
 			</Space>
 		),
 	},
@@ -50,7 +52,7 @@ const CategoryTable = () => {
 		name: `${index}`,
 		type: index,
 		sort: index,
-		status: index,
+		status: 1,
 		update_time: `${index}`,
 	}));
 
