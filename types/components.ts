@@ -26,7 +26,7 @@ export interface EmployeeAddModelData {
 export interface EmployeeTableParams {
 	data: EmployeeTableData[];
 	total: number;
-	handleRefresh: (page: number) => void;
+	handleRefresh: (page?: number) => void;
 }
 
 export interface EmployeeTableData {

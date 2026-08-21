@@ -1,4 +1,4 @@
-import { Employee } from "./common";
+import { Employee, Status } from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -10,8 +10,6 @@ export interface PageResult<T = unknown> {
 	total: number;
 	records: T[];
 }
-
-export type EmployeeAddData = null;
 
 export interface EmployeeAddParams {
 	id?: number;
@@ -40,4 +38,9 @@ export interface EmployeePageParams {
 	name?: string;
 	page: number;
 	pageSize: number;
+}
+
+export interface EmployeeStatusParams {
+	status: Status;
+	id: number;
 }

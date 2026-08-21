@@ -1,15 +1,15 @@
 import {
-	EmployeeAddData,
 	EmployeeAddParams,
 	EmployeeLoginData,
 	EmployeeLoginParams,
 	EmployeePageData,
 	EmployeePageParams,
+	EmployeeStatusParams,
 } from "@/types/services";
 import { get, post } from "../request/axios";
 
 export const employeeAdd = (params: EmployeeAddParams) => {
-	return post<EmployeeAddData>("/admin/employee", params);
+	return post<void>("/admin/employee", params);
 };
 
 export const employeeLogin = (params: EmployeeLoginParams) => {
@@ -18,4 +18,8 @@ export const employeeLogin = (params: EmployeeLoginParams) => {
 
 export const employeePage = (params: EmployeePageParams) => {
 	return get<EmployeePageData>("/admin/employee/page", { params });
+};
+
+export const employeeStatus = (params: EmployeeStatusParams) => {
+	return post<void>(`/admin/employee/status/${params.status}`, null, { params: { id: params.id } });
 };
