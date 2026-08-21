@@ -1,14 +1,21 @@
+import { Employee } from "./common";
+
 export interface Response<T = unknown> {
 	code: number;
 	data: T;
 	msg: string;
 }
 
-export interface EmployeeAddData {}
+export interface PageResult<T = unknown> {
+	total: number;
+	records: T[];
+}
+
+export type EmployeeAddData = null;
 
 export interface EmployeeAddParams {
 	id?: number;
-	id_number: string;
+	idNumber: string;
 	name: string;
 	phone: string;
 	sex: string;
@@ -25,4 +32,12 @@ export interface EmployeeLoginData {
 export interface EmployeeLoginParams {
 	username: string;
 	password: string;
+}
+
+export type EmployeePageData = PageResult<Employee>;
+
+export interface EmployeePageParams {
+	name?: string;
+	page: number;
+	pageSize: number;
 }

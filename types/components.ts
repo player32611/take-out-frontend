@@ -6,7 +6,7 @@ export interface CategoryTableData {
 	type: number;
 	sort: number;
 	status: Status;
-	update_time: string;
+	updateTime: string;
 }
 
 export interface EmployeeAddModelParams {
@@ -20,7 +20,13 @@ export interface EmployeeAddModelData {
 	username: string;
 	phone: { prefix: string; phone: string };
 	sex: "男" | "女";
-	id_number: string;
+	idNumber: string;
+}
+
+export interface EmployeeTableParams {
+	data: EmployeeTableData[];
+	total: number;
+	handleRefresh: (page: number) => void;
 }
 
 export interface EmployeeTableData {
@@ -29,7 +35,7 @@ export interface EmployeeTableData {
 	username: string;
 	phone: string;
 	status: Status;
-	update_time: string;
+	updateTime: string;
 }
 
 export interface LoginFormData {

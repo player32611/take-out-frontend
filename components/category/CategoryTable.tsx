@@ -53,7 +53,7 @@ const CategoryTable = () => {
 		type: index,
 		sort: index,
 		status: 1,
-		update_time: `${index}`,
+		updateTime: `${index}`,
 	}));
 
 	return <Table columns={columns} dataSource={data} pagination={{ pageSizeOptions: [10] }} />;
