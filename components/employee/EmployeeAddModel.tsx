@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { Button, Form, Input, message, Modal, Radio } from "antd";
+import { employeeAdd } from "@/services";
 import type { EmployeeAddModelData, EmployeeAddModelParams } from "@/types/components";
 
 import PhoneInput from "@/components/common/PhoneInput";
-import { employeeAdd } from "@/services";
-import { useState } from "react";
 
 const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModelParams) => {
 	const [form] = Form.useForm();
@@ -13,7 +13,7 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 	const formFinish = (value: EmployeeAddModelData) => {
 		setIsLoading(true);
 		employeeAdd({
-			id_number: value.id_number,
+			idNumber: value.idNumber,
 			name: value.name,
 			phone: value.phone.phone,
 			sex: value.sex,
@@ -33,10 +33,6 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 			});
 	};
 
-	const onOk = () => {
-		form.submit();
-	};
-
 	const onContinue = () => {
 		setIsContinue(true);
 		form.submit();
@@ -50,7 +46,7 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 			onCancel={handleClose}
 			okButtonProps={{ type: "primary", loading: isLoading }}
 			okText="保存"
-			onOk={onOk}
+			onOk={() => form.submit()}
 			footer={(_, { OkBtn, CancelBtn }) => (
 				<>
 					<CancelBtn />
@@ -68,7 +64,6 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 				initialValues={{
 					phone: { prefix: "86" },
 				}}
-				style={{ maxWidth: 600 }}
 			>
 				<Form.Item
 					name="name"
@@ -102,7 +97,7 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 				</Form.Item>
 
 				<Form.Item
-					name="id_number"
+					name="idNumber"
 					label="身份证号"
 					rules={[{ required: true, message: "请输入身份证号!" }]}
 				>

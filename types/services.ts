@@ -44,3 +44,16 @@ export interface EmployeeStatusParams {
 	status: Status;
 	id: number;
 }
+
+export interface EmployeeIdParams {
+	id: number;
+}
+
+export interface EmployeeUpdateParams {
+	id: number;
+	idNumber: string;
+	name: string;
+	phone: string;
+	sex: string;
+	username: string;
+}

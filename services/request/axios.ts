@@ -89,3 +89,11 @@ export const post = <T>(
 ): Promise<Response<T>> => {
 	return request.post(url, data, config);
 };
+
+export const put = <T>(
+	url: string,
+	data?: unknown,
+	config?: AxiosRequestConfig,
+): Promise<Response<T>> => {
+	return request.put(url, data, config);
+};

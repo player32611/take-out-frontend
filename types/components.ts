@@ -23,10 +23,26 @@ export interface EmployeeAddModelData {
 	idNumber: string;
 }
 
+export interface EmployeeSetModelParams {
+	open: boolean;
+	id: number | null;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface EmployeeSetModelData {
+	name: string;
+	username: string;
+	phone: { prefix: string; phone: string };
+	sex: "男" | "女";
+	idNumber: string;
+}
+
 export interface EmployeeTableParams {
 	data: EmployeeTableData[];
 	total: number;
 	handleRefresh: (page?: number) => void;
+	handleSet: (id: number) => void;
 }
 
 export interface EmployeeTableData {
