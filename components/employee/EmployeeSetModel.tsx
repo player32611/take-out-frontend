@@ -44,7 +44,7 @@ const EmployeeSetModel = ({ open, id, handleClose, handleSuccess }: EmployeeSetM
 				})
 				.finally(() => setIsLoading(false));
 		}
-	}, [id, form]);
+	}, [open, id, form]);
 
 	return (
 		<Modal

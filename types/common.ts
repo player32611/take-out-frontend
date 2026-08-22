@@ -1,3 +1,15 @@
+export interface Category {
+	id: number;
+	type: CategoryType;
+	name: string;
+	sort: number;
+	status: Status;
+	createTime: string;
+	updateTime: string;
+	createUser: number;
+	updateUser: number;
+}
+
 export interface Employee {
 	id: number;
 	username: string;
@@ -7,10 +19,12 @@ export interface Employee {
 	sex: string;
 	idNumber: string;
 	status: Status;
-	createTime: string | null;
+	createTime: string;
 	updateTime: string;
-	createUser: number | null;
+	createUser: number;
 	updateUser: number;
 }
 
 export type Status = 0 | 1;
+
+export type CategoryType = 1 | 2;

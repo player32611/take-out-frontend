@@ -1,8 +1,15 @@
 import axios from "axios";
-import type { AxiosRequestConfig } from "axios";
-import { getToken } from "@/lib/auth";
 import { message } from "antd";
+import type { AxiosRequestConfig } from "axios";
+import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { getToken } from "@/lib/auth";
 import { Response } from "@/types/services";
+
+let router: AppRouterInstance | null = null;
+
+export const setRouter = (routerInstance: AppRouterInstance) => {
+	router = routerInstance;
+};
 
 const request = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -54,7 +61,7 @@ request.interceptors.response.use(
 
 				case 401:
 					message.error("登录已过期，请重新登录");
-					// router.push("/login")
+					router?.push("/login");
 					break;
 
 				case 403:
@@ -96,4 +103,8 @@ export const put = <T>(
 	config?: AxiosRequestConfig,
 ): Promise<Response<T>> => {
 	return request.put(url, data, config);
+};
+
+export const del = <T>(url: string, config?: AxiosRequestConfig) => {
+	return request.delete<Response<T>>(url, config);
 };

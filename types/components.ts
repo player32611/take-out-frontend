@@ -1,9 +1,40 @@
-import { Status } from "./common";
+import { CategoryType, Status } from "./common";
+
+export interface CategoryAddModelParams {
+	open: boolean;
+	type: CategoryType;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface CategoryAddModelData {
+	name: string;
+	sort: number;
+}
+
+export interface CategorySetModelParams {
+	open: boolean;
+	record: CategoryTableData | null;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface CategorySetModelData {
+	name: string;
+	sort: number;
+}
+
+export interface CategoryTableParams {
+	data: CategoryTableData[];
+	total: number;
+	handleRefresh: (page?: number) => void;
+	handleSet: (record: CategoryTableData) => void;
+}
 
 export interface CategoryTableData {
 	key: number;
 	name: string;
-	type: number;
+	type: CategoryType;
 	sort: number;
 	status: Status;
 	updateTime: string;

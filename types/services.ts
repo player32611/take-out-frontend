@@ -1,4 +1,4 @@
-import { Employee, Status } from "./common";
+import { Category, CategoryType, Employee, Status } from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -9,6 +9,38 @@ export interface Response<T = unknown> {
 export interface PageResult<T = unknown> {
 	total: number;
 	records: T[];
+}
+
+export interface CategoryAddParams {
+	id?: number;
+	name: string;
+	sort: number;
+	type: CategoryType;
+}
+
+export interface CategoryUpdateParams {
+	id: number;
+	name: string;
+	sort: number;
+	type: CategoryType;
+}
+
+export interface CategoryPageParams {
+	name?: string;
+	page: number;
+	pageSize: number;
+	type?: CategoryType;
+}
+
+export type CategoryPageData = PageResult<Category>;
+
+export interface CategoryStatusParams {
+	status: Status;
+	id: number;
+}
+
+export interface CategoryDeleteParams {
+	id: number;
 }
 
 export interface EmployeeAddParams {

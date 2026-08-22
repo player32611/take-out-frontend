@@ -1,4 +1,4 @@
-import { Space, Table } from "antd";
+import { message, Space, Table } from "antd";
 import type { TableProps } from "antd";
 import type { EmployeeTableData, EmployeeTableParams } from "@/types/components";
 import type { Status as StatusType } from "@/types/common";
@@ -9,6 +9,7 @@ import { employeeStatus } from "@/services";
 const EmployeeTable = ({ data, total, handleRefresh, handleSet }: EmployeeTableParams) => {
 	const handleChangeStatus = (id: number, status: StatusType) => {
 		employeeStatus({ id, status }).then(() => {
+			message.success("修改成功");
 			handleRefresh();
 		});
 	};

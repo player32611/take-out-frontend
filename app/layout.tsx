@@ -2,6 +2,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 
 import "./globals.scss";
+import RouterProvider from "@/components/RouterProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -11,9 +12,11 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: React.PropsWithChildren) => (
 	<html lang="zh-CN">
 		<body>
-			<AntdRegistry>{children}</AntdRegistry>
+			<AntdRegistry>
+				<RouterProvider />
+				{children}
+			</AntdRegistry>
 		</body>
 	</html>
 );
-
 export default RootLayout;

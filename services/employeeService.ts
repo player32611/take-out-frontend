@@ -10,7 +10,7 @@ import {
 } from "@/types/services";
 import { Employee } from "@/types/common";
 
-import { get, post, put } from "../request/axios";
+import { get, post, put } from "./axios";
 
 export const employeeAdd = (params: EmployeeAddParams) => {
 	return post<void>("/admin/employee", params);
