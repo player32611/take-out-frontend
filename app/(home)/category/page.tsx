@@ -65,7 +65,12 @@ const Category = () => {
 			<Flex className={style.category_bar} align="center" justify="space-between">
 				<Space align="center">
 					分类名称：
-					<Input placeholder="请填写分类名称" onChange={e => setInputText(e.target.value)} />
+					<Input
+						placeholder="请填写分类名称"
+						value={inputText}
+						onChange={e => setInputText(e.target.value)}
+						allowClear
+					/>
 					分类类型：
 					<Select
 						placeholder="请选择"

@@ -58,6 +58,7 @@ const Employee = () => {
 					员工姓名：
 					<Search
 						placeholder="请输入员工姓名"
+						value={inputText}
 						onSearch={() => handleRefresh()}
 						onChange={e => setInputText(e.target.value)}
 						enterButton

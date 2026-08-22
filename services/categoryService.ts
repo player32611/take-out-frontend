@@ -1,15 +1,17 @@
-import {
+import type {
 	CategoryAddParams,
 	CategoryDeleteParams,
-	CategoryPageData,
+	CategoryListParams,
 	CategoryPageParams,
 	CategoryStatusParams,
 	CategoryUpdateParams,
+	PageResult,
 } from "@/types/services";
+import type { Category } from "@/types/common";
 import { del, get, post, put } from "./axios";
 
 export const categoryPage = (params: CategoryPageParams) => {
-	return get<CategoryPageData>("/admin/category/page", { params });
+	return get<PageResult<Category>>("/admin/category/page", { params });
 };
 
 export const categoryAdd = (params: CategoryAddParams) => {
@@ -26,4 +28,8 @@ export const categoryStatus = (params: CategoryStatusParams) => {
 
 export const categoryDelete = (params: CategoryDeleteParams) => {
 	return del<void>("/admin/category", { params });
+};
+
+export const categoryList = (params: CategoryListParams) => {
+	return get<Category[]>("/admin/category/list", { params });
 };

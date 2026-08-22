@@ -61,7 +61,7 @@ const CategorySetModel = ({ open, record, handleClose, handleSuccess }: Category
 				</Form.Item>
 
 				<Form.Item name="sort" label="排序" rules={[{ required: true, message: "请输入排序!" }]}>
-					<InputNumber placeholder="请输入排序" />
+					<InputNumber placeholder="请输入排序" min={1} style={{ width: "100%" }} />
 				</Form.Item>
 			</Form>
 		</Modal>

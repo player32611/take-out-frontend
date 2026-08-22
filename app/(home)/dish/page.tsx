@@ -1,25 +1,37 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import type { DishTableData } from "@/types/components";
+import type { SelectProps } from "antd/es/select";
 
 import style from "./dish.module.scss";
 import DishTable from "@/components/dish/DishTable";
 import DishAddModel from "@/components/dish/DishAddModel";
+import { categoryList } from "@/services";
 
 const Dish = () => {
 	const [total, setTotal] = useState<number>(0);
 	const [tableData, setTableData] = useState<DishTableData[]>([]);
-	const [currentAddType, setCurrentAddType] = useState<CategoryType>(1);
 	const [currentSetRecord, setCurrentSetRecord] = useState<DishTableData | null>(null);
 	const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
 	const [setModelOpen, setSetModelOpen] = useState<boolean>(false);
 	const [inputText, setInputText] = useState<string>("");
-	const [selectType, setSelectType] = useState<CategoryType | null>(null);
+	const [typeList, setTypeList] = useState<SelectProps["options"]>([]);
+	const [selectType, setSelectType] = useState<number | null>(null);
+	const [selectStatus, setSelectStatus] = useState();
 
-	const handleRefresh = useCallback(() => {}, []);
+	const handleRefresh = useCallback(() => {
+		categoryList({ type: 1 }).then(res => {
+			setTypeList(
+				res.data.map(record => ({
+					label: record.name,
+					value: record.id,
+				})),
+			);
+		});
+	}, []);
 
 	const handleSet = useCallback(() => {}, []);
 
@@ -27,21 +39,26 @@ const Dish = () => {
 		setAddModelOpen(true);
 	}, []);
 
+	useEffect(() => {
+		handleRefresh();
+	}, [handleRefresh]);
+
 	return (
 		<div className={style.dish}>
 			<Flex className={style.dish_bar} align="center" justify="space-between">
 				<Space align="center">
 					菜品名称：
-					<Input placeholder="请填写菜品名称" onChange={e => setInputText(e.target.value)} />
+					<Input
+						placeholder="请填写菜品名称"
+						value={inputText}
+						onChange={e => setInputText(e.target.value)}
+					/>
 					菜品分类：
 					<Select
 						placeholder="请选择"
 						style={{ width: 120 }}
 						value={selectType}
-						options={[
-							{ value: "1", label: "菜品分类" },
-							{ value: "2", label: "套餐分类" },
-						]}
+						options={typeList}
 						onChange={type => setSelectType(type)}
 						allowClear
 					/>
@@ -49,12 +66,12 @@ const Dish = () => {
 					<Select
 						placeholder="请选择"
 						style={{ width: 120 }}
-						value={selectType}
+						value={selectStatus}
 						options={[
 							{ value: "1", label: "菜品分类" },
 							{ value: "2", label: "套餐分类" },
 						]}
-						onChange={type => setSelectType(type)}
+						onChange={type => setSelectStatus(type)}
 						allowClear
 					/>
 					<Button type="primary" onClick={() => handleRefresh()}>

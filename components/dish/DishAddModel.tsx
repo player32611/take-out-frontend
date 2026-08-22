@@ -1,18 +1,21 @@
-import { useState } from "react";
-import type { RcFile, UploadProps } from "antd/es/upload";
-import { Form, Input, Modal, Space, Upload } from "antd";
+import { useEffect, useState } from "react";
+import { Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { commonUpload } from "@/services/commonService";
+import { categoryList, commonUpload } from "@/services";
 import type { DishAddModelData, DishAddModelParams } from "@/types/components";
+import type { SelectProps } from "antd/es/select";
+import type { UploadProps } from "antd/es/upload";
 
 const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) => {
 	const [form] = Form.useForm();
+	const [typeList, setTypeList] = useState<SelectProps["options"]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const formFinish = (data: DishAddModelData) => {};
 
 	const handleUpload: UploadProps["customRequest"] = ({ file, onSuccess, onError }) => {
 		if (!(file instanceof File)) {
+			message.error("文件类型错误");
 			onError?.(new Error("文件类型错误"));
 			return;
 		}
@@ -25,6 +28,17 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 				onError?.(err);
 			});
 	};
+
+	useEffect(() => {
+		categoryList({ type: 1 }).then(res => {
+			setTypeList(
+				res.data.map(record => ({
+					label: record.name,
+					value: record.id,
+				})),
+			);
+		});
+	}, [open]);
 
 	return (
 		<Modal
@@ -53,11 +67,19 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 				</Form.Item>
 
 				<Form.Item
+					name="categoryId"
+					label="菜品分类"
+					rules={[{ required: true, message: "请选择菜品分类!" }]}
+				>
+					<Select placeholder="请选择菜品分类" options={typeList} />
+				</Form.Item>
+
+				<Form.Item
 					name="price"
 					label="菜品价格"
-					rules={[{ required: true, message: "请填写菜品价格!", whitespace: true }]}
+					rules={[{ required: true, message: "请设置菜品价格!" }]}
 				>
-					<Input placeholder="请填写菜品价格" />
+					<InputNumber placeholder="请设置菜品价格" min={0} style={{ width: "100%" }} />
 				</Form.Item>
 
 				{/* <Form.Item name="tast" label="口味做法配置">
@@ -75,6 +97,7 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 						}
 						return e?.fileList;
 					}}
+					extra="支持 JPG、PNG 格式，图片大小不超过 2MB，建议上传200*200或300*300尺寸的图片"
 				>
 					<Upload name="file" listType="picture-card" maxCount={1} customRequest={handleUpload}>
 						<Space orientation="vertical">
