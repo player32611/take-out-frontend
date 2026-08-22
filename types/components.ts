@@ -39,6 +39,36 @@ export interface CategoryTableData {
 	status: Status;
 	updateTime: string;
 }
+export interface DishAddModelParams {
+	open: boolean;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface DishAddModelData {
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description: string;
+}
+
+export interface DishTableParams {
+	data: DishTableData[];
+	total: number;
+	handleRefresh: (page?: number) => void;
+	handleSet: (record: DishTableData) => void;
+}
+
+export interface DishTableData {
+	key: number;
+	name: string;
+	image: string;
+	categoryId: number;
+	price: number;
+	status: Status;
+	updateTime: string;
+}
 
 export interface EmployeeAddModelParams {
 	open: boolean;

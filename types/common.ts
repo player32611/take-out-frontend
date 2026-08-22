@@ -10,6 +10,20 @@ export interface Category {
 	updateUser: number;
 }
 
+export interface Dish {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	createTime: string;
+	updateTime: string;
+	createUser: number;
+	updateUser: number;
+}
+
 export interface Employee {
 	id: number;
 	username: string;

@@ -14,9 +14,6 @@ export const setRouter = (routerInstance: AppRouterInstance) => {
 const request = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
 	timeout: 10000,
-	headers: {
-		"Content-Type": "application/json",
-	},
 });
 
 request.interceptors.request.use(

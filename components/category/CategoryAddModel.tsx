@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
-import type { CategoryAddModelData, CategoryAddModelParams } from "@/types/components";
 import { categoryAdd } from "@/services/categoryService";
+import type { CategoryAddModelData, CategoryAddModelParams } from "@/types/components";
 
 const CategoryAddModel = ({ open, type, handleClose, handleSuccess }: CategoryAddModelParams) => {
 	const [form] = Form.useForm();

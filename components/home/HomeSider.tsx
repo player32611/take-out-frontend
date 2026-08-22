@@ -43,9 +43,10 @@ const HomeSider = () => {
 			label: "套餐管理",
 		},
 		{
-			key: "5",
+			key: "/dish",
 			icon: <CoffeeOutlined />,
 			label: "菜品管理",
+			onClick: () => router.push("/dish"),
 		},
 		{
 			key: "/category",

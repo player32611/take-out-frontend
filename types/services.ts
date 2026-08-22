@@ -43,6 +43,10 @@ export interface CategoryDeleteParams {
 	id: number;
 }
 
+export interface CommonUploadParams {
+	file: File;
+}
+
 export interface EmployeeAddParams {
 	id?: number;
 	idNumber: string;
