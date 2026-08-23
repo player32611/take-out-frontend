@@ -1,27 +1,36 @@
 import { useCallback, useState, useImperativeHandle } from "react";
 import { Image, message, Space, Table } from "antd";
-import { dishDelete } from "@/services";
-import { MESSAGE_DELETE_SUCCESS } from "@/lib/constants";
+import { dishDelete, dishStatus } from "@/services";
+import { MESSAGE } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { DishTableData, DishTableParams } from "@/types/components";
+import type { Status as StatusType } from "@/types/common";
 
 import Status from "../common/Status/Status";
 
 const DishTable = ({ data, total, handleRefresh, handleSet, ref }: DishTableParams) => {
 	const [selectKeys, setSelectKeys] = useState<number[]>([]);
 
-	const handleChangeStatus = useCallback(() => {}, []);
+	const handleChangeStatus = useCallback(
+		(id: number, status: StatusType) => {
+			dishStatus({ id, status }).then(() => {
+				message.success(MESSAGE.UPDATE_SUCCESS);
+				handleRefresh();
+			});
+		},
+		[handleRefresh],
+	);
 
 	const handleDelete = useCallback(
 		(id?: number) => {
 			if (id) {
 				dishDelete({ ids: id.toString() }).then(() => {
-					message.success(MESSAGE_DELETE_SUCCESS);
+					message.success(MESSAGE.DELETE_SUCCESS);
 					handleRefresh();
 				});
 			} else if (selectKeys.length) {
 				dishDelete({ ids: selectKeys.join(",") }).then(() => {
-					message.success(MESSAGE_DELETE_SUCCESS);
+					message.success(MESSAGE.DELETE_SUCCESS);
 					handleRefresh();
 				});
 			}
@@ -83,7 +92,7 @@ const DishTable = ({ data, total, handleRefresh, handleSet, ref }: DishTablePara
 						style={{ color: record.status ? "red" : "" }}
 						onClick={() => handleChangeStatus(record.key, record.status ? 0 : 1)}
 					>
-						{record.status ? "禁用" : "启用"}
+						{record.status ? "停售" : "启售"}
 					</a>
 				</Space>
 			),

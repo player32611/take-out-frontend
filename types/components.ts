@@ -14,11 +14,6 @@ export interface CategoryAddModelParams {
 	handleSuccess: () => void;
 }
 
-export interface CategoryAddModelData {
-	name: string;
-	sort: number;
-}
-
 export interface CategorySetModelParams {
 	open: boolean;
 	record: CategoryTableData | null;
@@ -26,7 +21,7 @@ export interface CategorySetModelParams {
 	handleSuccess: () => void;
 }
 
-export interface CategorySetModelData {
+export interface CategoryModelData {
 	name: string;
 	sort: number;
 }
@@ -46,8 +41,16 @@ export interface CategoryTableData {
 	status: Status;
 	updateTime: string;
 }
+
 export interface DishAddModelParams {
 	open: boolean;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface DishSetModelParams {
+	open: boolean;
+	id: number | null;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
@@ -62,13 +65,6 @@ export interface DishModelData {
 	}[];
 	image: UploadFile[];
 	description: string;
-}
-
-export interface DishSetModelParams {
-	open: boolean;
-	id: number | null;
-	handleClose: () => void;
-	handleSuccess: () => void;
 }
 
 export interface DishTableParams {
@@ -99,7 +95,7 @@ export interface EmployeeAddModelParams {
 	handleSuccess: () => void;
 }
 
-export interface EmployeeAddModelData {
+export interface EmployeeModelData {
 	name: string;
 	username: string;
 	phone: { prefix: string; phone: string };
@@ -112,14 +108,6 @@ export interface EmployeeSetModelParams {
 	id: number | null;
 	handleClose: () => void;
 	handleSuccess: () => void;
-}
-
-export interface EmployeeSetModelData {
-	name: string;
-	username: string;
-	phone: { prefix: string; phone: string };
-	sex: Gender;
-	idNumber: string;
 }
 
 export interface EmployeeTableParams {

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { message, Space, Table } from "antd";
 import { categoryDelete, categoryStatus } from "@/services";
-import { CATEGORY_TYPE, STATUS } from "@/lib/constants";
+import { CATEGORY_TYPE, MESSAGE, STATUS } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { CategoryTableData, CategoryTableParams } from "@/types/components";
 import type { Status as StatusType } from "@/types/common";
@@ -12,7 +12,7 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 	const handleChangeStatus = useCallback(
 		(id: number, status: StatusType) => {
 			categoryStatus({ id, status }).then(() => {
-				message.success("修改成功");
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleRefresh();
 			});
 		},
@@ -22,7 +22,7 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 	const handleDelete = useCallback(
 		(id: number) => {
 			categoryDelete({ id }).then(() => {
-				message.success("删除成功");
+				message.success(MESSAGE.DELETE_SUCCESS);
 				handleRefresh();
 			});
 		},

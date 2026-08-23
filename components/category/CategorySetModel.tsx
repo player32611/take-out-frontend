@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
 import { categoryUpdate } from "@/services";
-import type { CategorySetModelData, CategorySetModelParams } from "@/types/components";
+import { MESSAGE } from "@/lib/constants";
+import type { CategoryModelData, CategorySetModelParams } from "@/types/components";
 
 const CategorySetModel = ({ open, record, handleClose, handleSuccess }: CategorySetModelParams) => {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const formFinish = (data: CategorySetModelData) => {
+	const formFinish = (data: CategoryModelData) => {
 		if (!record) return;
 		setIsLoading(true);
 		categoryUpdate({
@@ -17,7 +18,7 @@ const CategorySetModel = ({ open, record, handleClose, handleSuccess }: Category
 			type: record.type,
 		})
 			.then(() => {
-				message.success("修改成功");
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleSuccess();
 				handleClose();
 			})

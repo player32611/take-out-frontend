@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { employeeId, employeeUpdate } from "@/services";
 import { Form, Input, message, Modal, Radio } from "antd";
-import type { EmployeeSetModelData, EmployeeSetModelParams } from "@/types/components";
+import { MESSAGE } from "@/lib/constants";
+import type { EmployeeModelData, EmployeeSetModelParams } from "@/types/components";
 
 import PhoneInput from "@/components/common/PhoneInput";
 
@@ -9,7 +10,7 @@ const EmployeeSetModel = ({ open, id, handleClose, handleSuccess }: EmployeeSetM
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(true);
 
-	const formFinish = (data: EmployeeSetModelData) => {
+	const formFinish = (data: EmployeeModelData) => {
 		if (!id) return;
 		setIsLoading(true);
 		employeeUpdate({
@@ -21,7 +22,7 @@ const EmployeeSetModel = ({ open, id, handleClose, handleSuccess }: EmployeeSetM
 			username: data.username,
 		})
 			.then(() => {
-				message.success("修改成功");
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleSuccess();
 				handleClose();
 			})

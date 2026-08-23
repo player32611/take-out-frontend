@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Form, Input, message, Modal, Radio } from "antd";
 import { employeeAdd } from "@/services";
-import type { EmployeeAddModelData, EmployeeAddModelParams } from "@/types/components";
+import { MESSAGE } from "@/lib/constants";
+import type { EmployeeModelData, EmployeeAddModelParams } from "@/types/components";
 
 import PhoneInput from "@/components/common/PhoneInput";
 
@@ -10,7 +11,7 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 	const [isLoading, setIsLoading] = useState(false);
 	const [isContinue, setIsContinue] = useState(false);
 
-	const formFinish = (value: EmployeeAddModelData) => {
+	const formFinish = (value: EmployeeModelData) => {
 		setIsLoading(true);
 		employeeAdd({
 			idNumber: value.idNumber,
@@ -22,7 +23,7 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 			.then(() => {
 				form.resetFields();
 				handleSuccess();
-				message.success("添加成功");
+				message.success(MESSAGE.INSERT_SUCCESS);
 				if (!isContinue) {
 					handleClose();
 				}

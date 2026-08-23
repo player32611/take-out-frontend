@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
 import { categoryAdd } from "@/services";
-import { CATEGORY_TYPE } from "@/lib/constants";
-import type { CategoryAddModelData, CategoryAddModelParams } from "@/types/components";
+import { CATEGORY_TYPE, MESSAGE } from "@/lib/constants";
+import type { CategoryModelData, CategoryAddModelParams } from "@/types/components";
 
 const CategoryAddModel = ({ open, type, handleClose, handleSuccess }: CategoryAddModelParams) => {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const formFinish = (data: CategoryAddModelData) => {
+	const formFinish = (data: CategoryModelData) => {
 		setIsLoading(true);
 		categoryAdd({ name: data.name, sort: data.sort, type })
 			.then(() => {
-				message.success("添加成功");
+				message.success(MESSAGE.INSERT_SUCCESS);
 				handleSuccess();
 				handleClose();
 			})

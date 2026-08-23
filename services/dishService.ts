@@ -6,6 +6,7 @@ import type {
 	DishPageParams,
 	DishPageVO,
 	DishSaveParams,
+	DishStatusParams,
 	DishVO,
 	PageResult,
 } from "@/types/services";
@@ -28,4 +29,8 @@ export const dishId = (params: DishIdParams) => {
 
 export const dishSave = (params: DishSaveParams) => {
 	return put<void>("/admin/dish", params);
+};
+
+export const dishStatus = (params: DishStatusParams) => {
+	return post<void>(`/admin/dish/status/${params.status}`, null, { params: { id: params.id } });
 };

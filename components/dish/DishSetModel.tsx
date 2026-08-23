@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { categoryList, commonUpload, dishId, dishSave } from "@/services";
-import { DISH_FLAVOR_OPTION, MESSAGE_UPDATE_SUCCESS, STATUS } from "@/lib/constants";
+import { DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib/constants";
 import type { DishModelData, DishSetModelParams } from "@/types/components";
 import type { SelectProps, UploadFile, UploadProps } from "antd";
 
@@ -28,7 +28,7 @@ const DishSetModel = ({ open, id, handleSuccess, handleClose }: DishSetModelPara
 		})
 			.then(() => {
 				form.resetFields();
-				message.success(MESSAGE_UPDATE_SUCCESS);
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleSuccess();
 				handleClose();
 			})
