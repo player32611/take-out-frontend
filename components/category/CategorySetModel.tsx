@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
-import { categoryUpdate } from "@/services/categoryService";
+import { categoryUpdate } from "@/services";
 import type { CategorySetModelData, CategorySetModelParams } from "@/types/components";
 
 const CategorySetModel = ({ open, record, handleClose, handleSuccess }: CategorySetModelParams) => {

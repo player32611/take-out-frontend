@@ -1,4 +1,5 @@
-import { CategoryType, Status } from "./common";
+import { UploadFile } from "antd";
+import { CategoryType, Gender, Status } from "./common";
 
 export interface CategoryAddModelParams {
 	open: boolean;
@@ -49,7 +50,11 @@ export interface DishAddModelData {
 	name: string;
 	categoryId: number;
 	price: number;
-	image: string;
+	dishFlavor: {
+		name: string;
+		value: string;
+	}[];
+	image: UploadFile[];
 	description: string;
 }
 
@@ -80,7 +85,7 @@ export interface EmployeeAddModelData {
 	name: string;
 	username: string;
 	phone: { prefix: string; phone: string };
-	sex: "男" | "女";
+	sex: Gender;
 	idNumber: string;
 }
 
@@ -95,7 +100,7 @@ export interface EmployeeSetModelData {
 	name: string;
 	username: string;
 	phone: { prefix: string; phone: string };
-	sex: "男" | "女";
+	sex: Gender;
 	idNumber: string;
 }
 

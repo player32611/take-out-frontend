@@ -5,6 +5,7 @@ import type { Status as StatusType } from "@/types/common";
 
 import Status from "../common/Status/Status";
 import { employeeStatus } from "@/services";
+import { STATUS } from "@/lib/constants";
 
 const EmployeeTable = ({ data, total, handleRefresh, handleSet }: EmployeeTableParams) => {
 	const handleChangeStatus = (id: number, status: StatusType) => {
@@ -51,7 +52,12 @@ const EmployeeTable = ({ data, total, handleRefresh, handleSet }: EmployeeTableP
 					<a onClick={() => handleSet(record.key)}>修改</a>
 					<a
 						style={{ color: record.status ? "red" : "" }}
-						onClick={() => handleChangeStatus(record.key, record.status ? 0 : 1)}
+						onClick={() =>
+							handleChangeStatus(
+								record.key,
+								record.status === STATUS.ENABLED ? STATUS.DISABLED : STATUS.ENABLED,
+							)
+						}
 					>
 						{record.status ? "禁用" : "启用"}
 					</a>

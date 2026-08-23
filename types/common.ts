@@ -1,3 +1,5 @@
+import { CATEGORY_TYPE, STATUS, GENDER } from "@/lib/constants";
+
 export interface Category {
 	id: number;
 	type: CategoryType;
@@ -24,6 +26,13 @@ export interface Dish {
 	updateUser: number;
 }
 
+export interface DishFlavor {
+	id: number;
+	dishId: number;
+	name: string;
+	value: string;
+}
+
 export interface Employee {
 	id: number;
 	username: string;
@@ -39,6 +48,8 @@ export interface Employee {
 	updateUser: number;
 }
 
-export type Status = 0 | 1;
+export type Status = (typeof STATUS)[keyof typeof STATUS];
 
-export type CategoryType = 1 | 2;
+export type CategoryType = (typeof CATEGORY_TYPE)[keyof typeof CATEGORY_TYPE];
+
+export type Gender = (typeof GENDER)[keyof typeof GENDER];

@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { message, Space, Table } from "antd";
-import { categoryDelete, categoryStatus } from "@/services/categoryService";
+import { categoryDelete, categoryStatus } from "@/services";
+import { CATEGORY_TYPE, STATUS } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { CategoryTableData, CategoryTableParams } from "@/types/components";
 import type { Status as StatusType } from "@/types/common";
@@ -39,7 +40,7 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 			title: "分类类型",
 			dataIndex: "type",
 			key: "type",
-			render: text => <>{text === 1 ? "菜品分类" : "套餐分类"}</>,
+			render: type => <>{type === CATEGORY_TYPE.DISH ? "菜品分类" : "套餐分类"}</>,
 		},
 		{
 			title: "排序",
@@ -69,9 +70,14 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 					</a>
 					<a
 						style={{ color: record.status ? "red" : "" }}
-						onClick={() => handleChangeStatus(record.key, record.status ? 0 : 1)}
+						onClick={() =>
+							handleChangeStatus(
+								record.key,
+								record.status === STATUS.ENABLED ? STATUS.DISABLED : STATUS.ENABLED,
+							)
+						}
 					>
-						{record.status ? "禁用" : "启用"}
+						{record.status === STATUS.ENABLED ? "禁用" : "启用"}
 					</a>
 				</Space>
 			),

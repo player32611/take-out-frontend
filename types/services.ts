@@ -48,6 +48,16 @@ export interface CategoryListParams {
 export interface CommonUploadParams {
 	file: File;
 }
+export interface DishAddParams {
+	id?: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description?: string;
+	status?: Status;
+	flavors?: { name: string; value: string }[];
+}
 
 export interface EmployeeAddParams {
 	id?: number;

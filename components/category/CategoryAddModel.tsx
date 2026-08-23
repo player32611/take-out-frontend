@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
-import { categoryAdd } from "@/services/categoryService";
+import { categoryAdd } from "@/services";
+import { CATEGORY_TYPE } from "@/lib/constants";
 import type { CategoryAddModelData, CategoryAddModelParams } from "@/types/components";
 
 const CategoryAddModel = ({ open, type, handleClose, handleSuccess }: CategoryAddModelParams) => {
@@ -22,7 +23,7 @@ const CategoryAddModel = ({ open, type, handleClose, handleSuccess }: CategoryAd
 
 	return (
 		<Modal
-			title={`新增${type === 1 ? "菜品" : "套餐"}分类`}
+			title={`新增${type === CATEGORY_TYPE.DISH ? "菜品" : "套餐"}分类`}
 			open={open}
 			cancelText="取消"
 			onCancel={handleClose}

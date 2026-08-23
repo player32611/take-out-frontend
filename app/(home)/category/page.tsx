@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { categoryPage } from "@/services/categoryService";
+import { categoryPage } from "@/services";
+import { CATEGORY_TYPE_OPTIONS } from "@/lib/constants";
 import type { CategoryTableData } from "@/types/components";
+import type { CategoryType } from "@/types/common";
 
 import style from "./category.module.scss";
 import CategoryAddModel from "@/components/category/CategoryAddModel";
 import CategoryTable from "@/components/category/CategoryTable";
-import { CategoryType } from "@/types/common";
 import CategorySetModel from "@/components/category/CategorySetModel";
 
 const Category = () => {
@@ -76,10 +77,7 @@ const Category = () => {
 						placeholder="请选择"
 						style={{ width: 120 }}
 						value={selectType}
-						options={[
-							{ value: "1", label: "菜品分类" },
-							{ value: "2", label: "套餐分类" },
-						]}
+						options={CATEGORY_TYPE_OPTIONS}
 						onChange={type => setSelectType(type)}
 						allowClear
 					/>
