@@ -52,7 +52,7 @@ export interface DishAddModelParams {
 	handleSuccess: () => void;
 }
 
-export interface DishAddModelData {
+export interface DishModelData {
 	name: string;
 	categoryId: number;
 	price: number;
@@ -64,11 +64,18 @@ export interface DishAddModelData {
 	description: string;
 }
 
+export interface DishSetModelParams {
+	open: boolean;
+	id: number | null;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
 export interface DishTableParams {
 	data: DishTableData[];
 	total: number;
 	handleRefresh: (page?: number) => void;
-	handleSet: (record: DishTableData) => void;
+	handleSet: (id: number) => void;
 	ref?: React.Ref<DishTableRef>;
 }
 

@@ -75,7 +75,7 @@ const DishTable = ({ data, total, handleRefresh, handleSet, ref }: DishTablePara
 			key: "action",
 			render: (_, record) => (
 				<Space size="medium">
-					<a onClick={() => handleSet(record)}>修改</a>
+					<a onClick={() => handleSet(record.key)}>修改</a>
 					<a style={{ color: "red" }} onClick={() => handleDelete(record.key)}>
 						删除
 					</a>

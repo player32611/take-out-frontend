@@ -1,4 +1,4 @@
-import { CategoryType, Employee, Status } from "./common";
+import { CategoryType, DishFlavor, Employee, Status } from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -57,7 +57,7 @@ export interface DishAddParams {
 	image: string;
 	description?: string;
 	status?: Status;
-	flavors?: { name: string; value: string }[];
+	flavors?: { dishId?: number; id?: number; name: string; value: string }[];
 }
 
 export interface DishPageVO {
@@ -72,6 +72,19 @@ export interface DishPageVO {
 	categoryName: string;
 }
 
+export interface DishVO {
+	id: number;
+	name: string;
+	categoryId: number;
+	categoryName: string;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	updateTime: string;
+	flavors: DishFlavor[];
+}
+
 export interface DishPageParams {
 	categoryId?: number;
 	name?: string;
@@ -82,6 +95,10 @@ export interface DishPageParams {
 
 export interface DishDeleteParams {
 	ids: string;
+}
+
+export interface DishIdParams {
+	id: number;
 }
 
 export interface EmployeeAddParams {

@@ -11,11 +11,12 @@ import type { SelectProps } from "antd/es/select";
 import style from "./dish.module.scss";
 import DishTable from "@/components/dish/DishTable";
 import DishAddModel from "@/components/dish/DishAddModel";
+import DishSetModel from "@/components/dish/DishSetModel";
 
 const Dish = () => {
 	const [total, setTotal] = useState<number>(0);
 	const [tableData, setTableData] = useState<DishTableData[]>([]);
-	const [currentSetRecord, setCurrentSetRecord] = useState<DishTableData | null>(null);
+	const [currentSetId, setCurrentSetId] = useState<number | null>(null);
 	const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
 	const [setModelOpen, setSetModelOpen] = useState<boolean>(false);
 	const [inputText, setInputText] = useState<string>("");
@@ -59,7 +60,10 @@ const Dish = () => {
 		[selectType, inputText, selectStatus],
 	);
 
-	const handleSet = useCallback(() => {}, []);
+	const handleSet = useCallback((id: number) => {
+		setCurrentSetId(id);
+		setSetModelOpen(true);
+	}, []);
 
 	const handleAdd = useCallback(() => {
 		setAddModelOpen(true);
@@ -124,6 +128,12 @@ const Dish = () => {
 			<DishAddModel
 				open={addModelOpen}
 				handleClose={() => setAddModelOpen(false)}
+				handleSuccess={handleRefresh}
+			/>
+			<DishSetModel
+				open={setModelOpen}
+				id={currentSetId}
+				handleClose={() => setSetModelOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
 		</div>
