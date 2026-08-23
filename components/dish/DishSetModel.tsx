@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { categoryList, commonUpload, dishId } from "@/services";
-import { DISH_FLAVOR_OPTION, STATUS } from "@/lib/constants";
+import { categoryList, commonUpload, dishId, dishSave } from "@/services";
+import { DISH_FLAVOR_OPTION, MESSAGE_UPDATE_SUCCESS, STATUS } from "@/lib/constants";
 import type { DishModelData, DishSetModelParams } from "@/types/components";
 import type { SelectProps, UploadFile, UploadProps } from "antd";
 
@@ -14,26 +14,27 @@ const DishSetModel = ({ open, id, handleSuccess, handleClose }: DishSetModelPara
 	const dishFlavor: { name: string; value: string[] }[] = Form.useWatch("dishFlavor", form);
 
 	const formFinish = (data: DishModelData) => {
-		console.log(data);
-		// setIsLoading(true);
-		// dishAdd({
-		// 	name: data.name,
-		// 	categoryId: data.categoryId,
-		// 	price: data.price,
-		// 	image: data.image[0].response,
-		// 	description: data.description,
-		// 	status: STATUS.DISABLED,
-		// 	flavors: data.dishFlavor.map(val => ({ name: val.name, value: JSON.stringify(val.value) })),
-		// })
-		// 	.then(() => {
-		// 		form.resetFields();
-		// 		message.success("添加成功");
-		// 		handleSuccess();
-		// 		handleClose();
-		// 	})
-		// 	.finally(() => {
-		// 		setIsLoading(false);
-		// 	});
+		if (!id) return;
+		setIsLoading(true);
+		dishSave({
+			id,
+			name: data.name,
+			categoryId: data.categoryId,
+			price: data.price,
+			image: data.image[0].response,
+			description: data.description,
+			status: STATUS.DISABLED,
+			flavors: data.dishFlavor.map(val => ({ name: val.name, value: JSON.stringify(val.value) })),
+		})
+			.then(() => {
+				form.resetFields();
+				message.success(MESSAGE_UPDATE_SUCCESS);
+				handleSuccess();
+				handleClose();
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
 
 	const handleUpload: UploadProps["customRequest"] = ({ file, onSuccess, onError }) => {

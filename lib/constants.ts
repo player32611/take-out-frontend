@@ -46,3 +46,5 @@ export const DISH_FLAVOR_OPTION = [
 export const PAGE_SIZE = 10;
 
 export const MESSAGE_DELETE_SUCCESS = "删除成功";
+
+export const MESSAGE_UPDATE_SUCCESS = "修改成功";

@@ -101,6 +101,17 @@ export interface DishIdParams {
 	id: number;
 }
 
+export interface DishSaveParams {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description?: string;
+	status?: Status;
+	flavors?: { dishId?: number; id?: number; name: string; value: string }[];
+}
+
 export interface EmployeeAddParams {
 	id?: number;
 	idNumber: string;
