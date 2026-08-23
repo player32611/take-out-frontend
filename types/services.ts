@@ -48,6 +48,7 @@ export interface CategoryListParams {
 export interface CommonUploadParams {
 	file: File;
 }
+
 export interface DishAddParams {
 	id?: number;
 	name: string;
@@ -57,6 +58,30 @@ export interface DishAddParams {
 	description?: string;
 	status?: Status;
 	flavors?: { name: string; value: string }[];
+}
+
+export interface DishPageVO {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	updateTime: string;
+	categoryName: string;
+}
+
+export interface DishPageParams {
+	categoryId?: number;
+	name?: string;
+	page: number;
+	pageSize: number;
+	status?: Status;
+}
+
+export interface DishDeleteParams {
+	ids: string;
 }
 
 export interface EmployeeAddParams {

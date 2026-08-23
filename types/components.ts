@@ -1,6 +1,12 @@
 import { UploadFile } from "antd";
 import { CategoryType, Gender, Status } from "./common";
 
+export interface StatusParams {
+	status: Status;
+	disableText?: string;
+	enableText?: string;
+}
+
 export interface CategoryAddModelParams {
 	open: boolean;
 	type: CategoryType;
@@ -63,16 +69,21 @@ export interface DishTableParams {
 	total: number;
 	handleRefresh: (page?: number) => void;
 	handleSet: (record: DishTableData) => void;
+	ref?: React.Ref<DishTableRef>;
 }
 
 export interface DishTableData {
 	key: number;
 	name: string;
 	image: string;
-	categoryId: number;
+	categoryName: string;
 	price: number;
 	status: Status;
 	updateTime: string;
+}
+
+export interface DishTableRef {
+	handleDelete: (id?: number) => void;
 }
 
 export interface EmployeeAddModelParams {

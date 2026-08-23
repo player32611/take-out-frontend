@@ -42,3 +42,7 @@ export const DISH_FLAVOR_OPTION = [
 		value: ["不辣", "微辣", "中辣", "特辣"],
 	},
 ] as const;
+
+export const PAGE_SIZE = 10;
+
+export const MESSAGE_DELETE_SUCCESS = "删除成功";

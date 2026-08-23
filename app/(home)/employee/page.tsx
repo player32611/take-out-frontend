@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Flex, Input, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { employeePage } from "@/services";
+import { PAGE_SIZE } from "@/lib/constants";
 import type { EmployeeTableData } from "@/types/components";
 
 import EmployeeAddModel from "@/components/employee/EmployeeAddModel";
@@ -23,21 +24,23 @@ const Employee = () => {
 
 	const handleRefresh = useCallback(
 		(page: number = 1) => {
-			employeePage({ name: inputText.length ? inputText : undefined, page, pageSize: 10 }).then(
-				res => {
-					setTotal(res.data.total);
-					setTableData(
-						res.data.records.map(record => ({
-							key: record.id,
-							name: record.name,
-							username: record.username,
-							phone: record.phone,
-							status: record.status,
-							updateTime: record.updateTime,
-						})),
-					);
-				},
-			);
+			employeePage({
+				name: inputText.length ? inputText : undefined,
+				page,
+				pageSize: PAGE_SIZE,
+			}).then(res => {
+				setTotal(res.data.total);
+				setTableData(
+					res.data.records.map(record => ({
+						key: record.id,
+						name: record.name,
+						username: record.username,
+						phone: record.phone,
+						status: record.status,
+						updateTime: record.updateTime,
+					})),
+				);
+			});
 		},
 		[inputText],
 	);

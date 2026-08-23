@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { categoryPage } from "@/services";
-import { CATEGORY_TYPE_OPTIONS } from "@/lib/constants";
+import { CATEGORY_TYPE_OPTIONS, PAGE_SIZE } from "@/lib/constants";
 import type { CategoryTableData } from "@/types/components";
 import type { CategoryType } from "@/types/common";
 
@@ -28,7 +28,7 @@ const Category = () => {
 			categoryPage({
 				name: inputText || undefined,
 				page,
-				pageSize: 10,
+				pageSize: PAGE_SIZE,
 				type: selectType || undefined,
 			}).then(res => {
 				setTotal(res.data.total);

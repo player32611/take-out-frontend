@@ -1,15 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import type { DishTableData } from "@/types/components";
+import { categoryList, dishPage } from "@/services";
+import { PAGE_SIZE, STATUS } from "@/lib/constants";
+import type { DishTableData, DishTableRef } from "@/types/components";
 import type { SelectProps } from "antd/es/select";
 
 import style from "./dish.module.scss";
 import DishTable from "@/components/dish/DishTable";
 import DishAddModel from "@/components/dish/DishAddModel";
-import { categoryList } from "@/services";
 
 const Dish = () => {
 	const [total, setTotal] = useState<number>(0);
@@ -22,16 +23,41 @@ const Dish = () => {
 	const [selectType, setSelectType] = useState<number | null>(null);
 	const [selectStatus, setSelectStatus] = useState();
 
-	const handleRefresh = useCallback(() => {
-		categoryList({ type: 1 }).then(res => {
-			setTypeList(
-				res.data.map(record => ({
-					label: record.name,
-					value: record.id,
-				})),
-			);
-		});
-	}, []);
+	const tableRef = useRef<DishTableRef | null>(null);
+
+	const handleRefresh = useCallback(
+		(page: number = 1) => {
+			dishPage({
+				categoryId: selectType || undefined,
+				name: inputText,
+				page,
+				pageSize: PAGE_SIZE,
+				status: selectStatus,
+			}).then(res => {
+				setTableData(
+					res.data.records.map(record => ({
+						key: record.id,
+						name: record.name,
+						image: record.image,
+						categoryName: record.categoryName,
+						price: record.price,
+						status: record.status,
+						updateTime: record.updateTime,
+					})),
+				);
+				setTotal(res.data.total);
+			});
+			categoryList({ type: 1 }).then(res => {
+				setTypeList(
+					res.data.map(record => ({
+						label: record.name,
+						value: record.id,
+					})),
+				);
+			});
+		},
+		[selectType, inputText, selectStatus],
+	);
 
 	const handleSet = useCallback(() => {}, []);
 
@@ -52,6 +78,7 @@ const Dish = () => {
 						placeholder="请填写菜品名称"
 						value={inputText}
 						onChange={e => setInputText(e.target.value)}
+						allowClear
 					/>
 					菜品分类：
 					<Select
@@ -68,8 +95,8 @@ const Dish = () => {
 						style={{ width: 120 }}
 						value={selectStatus}
 						options={[
-							{ value: "1", label: "菜品分类" },
-							{ value: "2", label: "套餐分类" },
+							{ label: "停售", value: STATUS.DISABLED },
+							{ label: "启售", value: STATUS.ENABLED },
 						]}
 						onChange={type => setSelectStatus(type)}
 						allowClear
@@ -79,7 +106,7 @@ const Dish = () => {
 					</Button>
 				</Space>
 				<Space>
-					<Button color="danger" variant="link">
+					<Button color="danger" variant="link" onClick={() => tableRef.current?.handleDelete()}>
 						批量删除
 					</Button>
 					<Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
@@ -92,6 +119,7 @@ const Dish = () => {
 				total={total}
 				handleRefresh={handleRefresh}
 				handleSet={handleSet}
+				ref={tableRef}
 			/>
 			<DishAddModel
 				open={addModelOpen}

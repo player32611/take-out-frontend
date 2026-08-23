@@ -1,24 +1,39 @@
-import { useCallback } from "react";
-import { Space, Table } from "antd";
+import { useCallback, useState, useImperativeHandle } from "react";
+import { Image, message, Space, Table } from "antd";
+import { dishDelete } from "@/services";
+import { MESSAGE_DELETE_SUCCESS } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { DishTableData, DishTableParams } from "@/types/components";
 
 import Status from "../common/Status/Status";
 
-const rowSelection: TableProps<DishTableData>["rowSelection"] = {
-	onChange: (selectedRowKeys: React.Key[], selectedRows: DishTableData[]) => {
-		console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
-	},
-	getCheckboxProps: (record: DishTableData) => ({
-		disabled: record.name === "Disabled User",
-		name: record.name,
-	}),
-};
+const DishTable = ({ data, total, handleRefresh, handleSet, ref }: DishTableParams) => {
+	const [selectKeys, setSelectKeys] = useState<number[]>([]);
 
-const DishTable = ({ total, handleRefresh, handleSet }: DishTableParams) => {
 	const handleChangeStatus = useCallback(() => {}, []);
 
-	const handleDelete = useCallback(() => {}, []);
+	const handleDelete = useCallback(
+		(id?: number) => {
+			if (id) {
+				dishDelete({ ids: id.toString() }).then(() => {
+					message.success(MESSAGE_DELETE_SUCCESS);
+					handleRefresh();
+				});
+			} else if (selectKeys.length) {
+				dishDelete({ ids: selectKeys.join(",") }).then(() => {
+					message.success(MESSAGE_DELETE_SUCCESS);
+					handleRefresh();
+				});
+			}
+		},
+		[selectKeys, handleRefresh],
+	);
+
+	const rowSelection: TableProps<DishTableData>["rowSelection"] = {
+		onChange: (selectedRowKeys: React.Key[]) => {
+			setSelectKeys(selectedRowKeys.map(key => Number(key)));
+		},
+	};
 
 	const columns: TableProps<DishTableData>["columns"] = [
 		{
@@ -31,22 +46,24 @@ const DishTable = ({ total, handleRefresh, handleSet }: DishTableParams) => {
 			title: "图片",
 			dataIndex: "image",
 			key: "image",
+			render: (src, record) => <Image width={50} height={50} src={src} alt={record.name} />,
 		},
 		{
 			title: "菜品分类",
-			dataIndex: "categoryId",
-			key: "categoryId",
+			dataIndex: "categoryName",
+			key: "categoryName",
 		},
 		{
 			title: "售价",
 			dataIndex: "price",
 			key: "price",
+			render: price => <div>￥{price}</div>,
 		},
 		{
 			title: "售卖状态",
 			dataIndex: "status",
 			key: "status",
-			render: status => <Status status={status}></Status>,
+			render: status => <Status status={status} disableText="停售" enableText="启售"></Status>,
 		},
 		{
 			title: "最后操作时间",
@@ -73,14 +90,8 @@ const DishTable = ({ total, handleRefresh, handleSet }: DishTableParams) => {
 		},
 	];
 
-	const data: DishTableData[] = Array.from({ length: 20 }, (_, i) => ({
-		key: i,
-		name: `${i}`,
-		image: `${i}`,
-		categoryId: i,
-		price: i,
-		status: 0,
-		updateTime: `${i}`,
+	useImperativeHandle(ref, () => ({
+		handleDelete,
 	}));
 
 	return (
