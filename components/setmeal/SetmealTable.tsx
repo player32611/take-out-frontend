@@ -1,6 +1,6 @@
 import { useCallback, useState, useImperativeHandle } from "react";
 import { Image, message, Space, Table } from "antd";
-import { dishDelete, dishStatus } from "@/services";
+import { setmealStatus } from "@/services";
 import { MESSAGE } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { SetmealTableData, SetmealTableParams, Status as StatusType } from "@/types";
@@ -12,10 +12,10 @@ const SetmealTable = ({ data, total, handleRefresh, handleSet, ref }: SetmealTab
 
 	const handleChangeStatus = useCallback(
 		(id: number, status: StatusType) => {
-			// dishStatus({ id, status }).then(() => {
-			// 	message.success(MESSAGE.UPDATE_SUCCESS);
-			// 	handleRefresh();
-			// });
+			setmealStatus({ id, status }).then(() => {
+				message.success(MESSAGE.UPDATE_SUCCESS);
+				handleRefresh();
+			});
 		},
 		[handleRefresh],
 	);

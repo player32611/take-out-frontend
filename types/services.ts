@@ -202,6 +202,11 @@ export interface SetmealPageVO {
 	categoryName: string;
 }
 
+export interface SetmealStatusParams {
+	status: Status;
+	id: number;
+}
+
 export interface ShopSetStatusParams {
 	status: Status;
 }
