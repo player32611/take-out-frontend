@@ -39,9 +39,10 @@ const HomeSider = ({ collapsed }: HomeSiderParams) => {
 			label: "订单管理",
 		},
 		{
-			key: "4",
+			key: "/setmeal",
 			icon: <GiftFilled />,
 			label: "套餐管理",
+			onClick: () => router.push("/setmeal"),
 		},
 		{
 			key: "/dish",

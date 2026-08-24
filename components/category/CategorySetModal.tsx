@@ -47,7 +47,7 @@ const CategorySetModal = ({ open, record, handleClose, handleSuccess }: Category
 		>
 			<Form
 				form={form}
-				name="employeeAdd"
+				name="categorySet"
 				onFinish={formFinish}
 				initialValues={{
 					phone: { prefix: "86" },

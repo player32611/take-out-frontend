@@ -164,6 +164,24 @@ export interface EmployeeUpdateParams {
 	username: string;
 }
 
+export interface SetmealAddParams {
+	id?: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description?: string;
+	status: Status;
+	setmealDishes: {
+		copies: number;
+		id?: number;
+		dishId: number;
+		name: string;
+		price: number;
+		setmealId?: number;
+	}[];
+}
+
 export interface ShopSetStatusParams {
 	status: Status;
 }

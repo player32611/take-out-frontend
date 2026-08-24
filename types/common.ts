@@ -48,6 +48,20 @@ export interface Employee {
 	updateUser: number;
 }
 
+export interface Setmeal {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	createTime: string;
+	updateTime: string;
+	createUser: number;
+	updateUser: number;
+}
+
 export type Status = (typeof STATUS)[keyof typeof STATUS];
 
 export type CategoryType = (typeof CATEGORY_TYPE)[keyof typeof CATEGORY_TYPE];

@@ -99,7 +99,7 @@ const DishSetModal = ({ open, id, handleSuccess, handleClose }: DishSetModalPara
 		>
 			<Form
 				form={form}
-				name="employeeAdd"
+				name="dishSet"
 				onFinish={formFinish}
 				initialValues={{
 					phone: { prefix: "86" },

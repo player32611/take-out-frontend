@@ -33,7 +33,7 @@ const CategoryAddModal = ({ open, type, handleClose, handleSuccess }: CategoryAd
 		>
 			<Form
 				form={form}
-				name="employeeAdd"
+				name="categoryAdd"
 				onFinish={formFinish}
 				initialValues={{
 					phone: { prefix: "86" },

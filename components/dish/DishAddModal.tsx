@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { categoryList, commonUpload, dishAdd } from "@/services";
-import { DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib/constants";
+import { CATEGORY_TYPE, DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib/constants";
 import type { DishModalData, DishAddModalParams } from "@/types/components";
 import type { SelectProps, UploadProps } from "antd";
 
@@ -52,7 +52,7 @@ const DishAddModal = ({ open, handleClose, handleSuccess }: DishAddModalParams) 
 	};
 
 	useEffect(() => {
-		categoryList({ type: 1 }).then(res => {
+		categoryList({ type: CATEGORY_TYPE.DISH }).then(res => {
 			setTypeList(
 				res.data.map(record => ({
 					label: record.name,
@@ -75,7 +75,7 @@ const DishAddModal = ({ open, handleClose, handleSuccess }: DishAddModalParams) 
 		>
 			<Form
 				form={form}
-				name="employeeAdd"
+				name="dishAdd"
 				onFinish={formFinish}
 				initialValues={{
 					phone: { prefix: "86" },

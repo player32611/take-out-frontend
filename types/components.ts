@@ -157,3 +157,23 @@ export interface LoginFormParams {
 export interface RegisterFormParams {
 	handleChangeState: () => void;
 }
+
+export interface SetmealModalData {
+	name: string;
+	categoryId: number;
+	price: number;
+	setmealDishes: {
+		dishId: number;
+		name: string;
+		price: number;
+		copies: number;
+	}[];
+	image: UploadFile[];
+	description: string;
+}
+
+export interface SetmealAddModalParams {
+	open: boolean;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
