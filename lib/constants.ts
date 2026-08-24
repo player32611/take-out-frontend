@@ -50,3 +50,9 @@ export const MESSAGE = {
 	UPDATE_SUCCESS: "修改成功",
 	INSERT_SUCCESS: "添加成功",
 } as const;
+
+export const DESCRIPTION = {
+	SHOP_STATUS_ENABLE: "当前餐厅处于营业状态，自动接收任何订单，可点击打烊中进入店铺打烊状态",
+	SHOP_STATUS_DISABLE:
+		"当前餐厅处于打烊状态，仅接收营业时间内的预定订单，可点击营业中手动恢复营业状态",
+} as const;

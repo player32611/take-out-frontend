@@ -1,4 +1,5 @@
-import {
+import type {
+	Employee,
 	EmployeeAddParams,
 	EmployeeIdParams,
 	EmployeeLoginData,
@@ -7,8 +8,7 @@ import {
 	EmployeePageParams,
 	EmployeeStatusParams,
 	EmployeeUpdateParams,
-} from "@/types/services";
-import { Employee } from "@/types/common";
+} from "@/types";
 
 import { get, post, put } from "./axios";
 

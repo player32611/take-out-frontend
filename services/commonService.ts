@@ -1,5 +1,5 @@
 import { post } from "./axios";
-import type { CommonUploadParams } from "@/types/services";
+import type { CommonUploadParams } from "@/types";
 
 export const commonUpload = ({ file }: CommonUploadParams) => {
 	const formData = new FormData();

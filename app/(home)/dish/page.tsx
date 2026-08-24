@@ -10,15 +10,15 @@ import type { SelectProps } from "antd/es/select";
 
 import style from "./dish.module.scss";
 import DishTable from "@/components/dish/DishTable";
-import DishAddModel from "@/components/dish/DishAddModel";
-import DishSetModel from "@/components/dish/DishSetModel";
+import DishAddModal from "@/components/dish/DishAddModal";
+import DishSetModal from "@/components/dish/DishSetModal";
 
 const Dish = () => {
 	const [total, setTotal] = useState<number>(0);
 	const [tableData, setTableData] = useState<DishTableData[]>([]);
 	const [currentSetId, setCurrentSetId] = useState<number | null>(null);
-	const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
-	const [setModelOpen, setSetModelOpen] = useState<boolean>(false);
+	const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
+	const [setModalOpen, setSetModalOpen] = useState<boolean>(false);
 	const [inputText, setInputText] = useState<string>("");
 	const [typeList, setTypeList] = useState<SelectProps["options"]>([]);
 	const [selectType, setSelectType] = useState<number | null>(null);
@@ -62,11 +62,11 @@ const Dish = () => {
 
 	const handleSet = useCallback((id: number) => {
 		setCurrentSetId(id);
-		setSetModelOpen(true);
+		setSetModalOpen(true);
 	}, []);
 
 	const handleAdd = useCallback(() => {
-		setAddModelOpen(true);
+		setAddModalOpen(true);
 	}, []);
 
 	useEffect(() => {
@@ -125,15 +125,15 @@ const Dish = () => {
 				handleSet={handleSet}
 				ref={tableRef}
 			/>
-			<DishAddModel
-				open={addModelOpen}
-				handleClose={() => setAddModelOpen(false)}
+			<DishAddModal
+				open={addModalOpen}
+				handleClose={() => setAddModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
-			<DishSetModel
-				open={setModelOpen}
+			<DishSetModal
+				open={setModalOpen}
 				id={currentSetId}
-				handleClose={() => setSetModelOpen(false)}
+				handleClose={() => setSetModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
 		</div>

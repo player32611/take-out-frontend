@@ -9,17 +9,17 @@ import type { CategoryTableData } from "@/types/components";
 import type { CategoryType } from "@/types/common";
 
 import style from "./category.module.scss";
-import CategoryAddModel from "@/components/category/CategoryAddModel";
+import CategoryAddModal from "@/components/category/CategoryAddModal";
 import CategoryTable from "@/components/category/CategoryTable";
-import CategorySetModel from "@/components/category/CategorySetModel";
+import CategorySetModal from "@/components/category/CategorySetModal";
 
 const Category = () => {
 	const [total, setTotal] = useState<number>(0);
 	const [tableData, setTableData] = useState<CategoryTableData[]>([]);
 	const [currentAddType, setCurrentAddType] = useState<CategoryType>(1);
 	const [currentSetRecord, setCurrentSetRecord] = useState<CategoryTableData | null>(null);
-	const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
-	const [setModelOpen, setSetModelOpen] = useState<boolean>(false);
+	const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
+	const [setModalOpen, setSetModalOpen] = useState<boolean>(false);
 	const [inputText, setInputText] = useState<string>("");
 	const [selectType, setSelectType] = useState<CategoryType | null>(null);
 
@@ -49,12 +49,12 @@ const Category = () => {
 
 	const handleSet = useCallback((record: CategoryTableData) => {
 		setCurrentSetRecord(record);
-		setSetModelOpen(true);
+		setSetModalOpen(true);
 	}, []);
 
 	const handleAdd = useCallback((type: CategoryType) => {
 		setCurrentAddType(type);
-		setAddModelOpen(true);
+		setAddModalOpen(true);
 	}, []);
 
 	useEffect(() => {
@@ -100,16 +100,16 @@ const Category = () => {
 				handleRefresh={handleRefresh}
 				handleSet={handleSet}
 			></CategoryTable>
-			<CategoryAddModel
-				open={addModelOpen}
+			<CategoryAddModal
+				open={addModalOpen}
 				type={currentAddType}
-				handleClose={() => setAddModelOpen(false)}
+				handleClose={() => setAddModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
-			<CategorySetModel
-				open={setModelOpen}
+			<CategorySetModal
+				open={setModalOpen}
 				record={currentSetRecord}
-				handleClose={() => setSetModelOpen(false)}
+				handleClose={() => setSetModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
 		</div>

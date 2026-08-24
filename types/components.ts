@@ -1,5 +1,5 @@
 import { UploadFile } from "antd";
-import { CategoryType, Gender, Status } from "./common";
+import type { CategoryType, Gender, Status } from "./common";
 
 export interface StatusParams {
 	status: Status;
@@ -7,21 +7,21 @@ export interface StatusParams {
 	enableText?: string;
 }
 
-export interface CategoryAddModelParams {
+export interface CategoryAddModalParams {
 	open: boolean;
 	type: CategoryType;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
 
-export interface CategorySetModelParams {
+export interface CategorySetModalParams {
 	open: boolean;
 	record: CategoryTableData | null;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
 
-export interface CategoryModelData {
+export interface CategoryModalData {
 	name: string;
 	sort: number;
 }
@@ -42,20 +42,20 @@ export interface CategoryTableData {
 	updateTime: string;
 }
 
-export interface DishAddModelParams {
+export interface DishAddModalParams {
 	open: boolean;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
 
-export interface DishSetModelParams {
+export interface DishSetModalParams {
 	open: boolean;
 	id: number | null;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
 
-export interface DishModelData {
+export interface DishModalData {
 	name: string;
 	categoryId: number;
 	price: number;
@@ -89,13 +89,13 @@ export interface DishTableRef {
 	handleDelete: (id?: number) => void;
 }
 
-export interface EmployeeAddModelParams {
+export interface EmployeeAddModalParams {
 	open: boolean;
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
 
-export interface EmployeeModelData {
+export interface EmployeeModalData {
 	name: string;
 	username: string;
 	phone: { prefix: string; phone: string };
@@ -103,7 +103,7 @@ export interface EmployeeModelData {
 	idNumber: string;
 }
 
-export interface EmployeeSetModelParams {
+export interface EmployeeSetModalParams {
 	open: boolean;
 	id: number | null;
 	handleClose: () => void;
@@ -124,6 +124,24 @@ export interface EmployeeTableData {
 	phone: string;
 	status: Status;
 	updateTime: string;
+}
+
+export interface HomeHeaderParams {
+	collapsed: boolean;
+	status: Status | null;
+	setCollapsed: (collapsed: boolean) => void;
+	handleSetStart: () => void;
+}
+
+export interface HomeSetModalParams {
+	open: boolean;
+	status: Status | null;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface HomeSiderParams {
+	collapsed: boolean;
 }
 
 export interface LoginFormData {

@@ -11,10 +11,11 @@ import {
 	ReconciliationFilled,
 } from "@ant-design/icons";
 import { useRouter, usePathname } from "next/navigation";
+import type { HomeSiderParams } from "@/types/components";
 
 const { Sider } = Layout;
 
-const HomeSider = () => {
+const HomeSider = ({ collapsed }: HomeSiderParams) => {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -63,7 +64,7 @@ const HomeSider = () => {
 	];
 
 	return (
-		<Sider>
+		<Sider trigger={null} collapsible collapsed={collapsed}>
 			<Menu
 				theme="dark"
 				mode="inline"

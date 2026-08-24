@@ -1,9 +1,9 @@
 import axios from "axios";
 import { message } from "antd";
+import { getToken } from "@/lib/auth";
 import type { AxiosRequestConfig } from "axios";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { getToken } from "@/lib/auth";
-import { Response } from "@/types/services";
+import type { Response } from "@/types/services";
 
 let router: AppRouterInstance | null = null;
 

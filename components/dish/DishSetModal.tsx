@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { categoryList, commonUpload, dishAdd } from "@/services";
+import { categoryList, commonUpload, dishId, dishSave } from "@/services";
 import { DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib/constants";
-import type { DishModelData, DishAddModelParams } from "@/types/components";
-import type { SelectProps, UploadProps } from "antd";
+import type { DishModalData, DishSetModalParams } from "@/types/components";
+import type { SelectProps, UploadFile, UploadProps } from "antd";
 
-const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) => {
+const DishSetModal = ({ open, id, handleSuccess, handleClose }: DishSetModalParams) => {
 	const [form] = Form.useForm();
 	const [typeList, setTypeList] = useState<SelectProps["options"]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const dishFlavor: { name: string; value: string[] }[] = Form.useWatch("dishFlavor", form);
 
-	const formFinish = (data: DishModelData) => {
+	const formFinish = (data: DishModalData) => {
+		if (!id) return;
 		setIsLoading(true);
-		dishAdd({
+		dishSave({
+			id,
 			name: data.name,
 			categoryId: data.categoryId,
 			price: data.price,
@@ -26,7 +28,7 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 		})
 			.then(() => {
 				form.resetFields();
-				message.success(MESSAGE.INSERT_SUCCESS);
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleSuccess();
 				handleClose();
 			})
@@ -60,11 +62,33 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 				})),
 			);
 		});
-	}, [open]);
+		if (id) {
+			dishId({ id: id }).then(res => {
+				form.setFieldsValue({
+					name: res.data.name,
+					categoryId: res.data.categoryId,
+					price: res.data.price,
+					dishFlavor: res.data.flavors.map(record => ({
+						name: record.name,
+						value: JSON.parse(record.value),
+					})),
+					image: [
+						{
+							uid: "-1",
+							name: res.data.name,
+							status: "done",
+							url: res.data.image,
+						} satisfies UploadFile,
+					],
+					description: res.data.description,
+				});
+			});
+		}
+	}, [open, id, form]);
 
 	return (
 		<Modal
-			title="新建菜品"
+			title="修改菜品"
 			open={open}
 			cancelText="取消"
 			onCancel={handleClose}
@@ -194,4 +218,4 @@ const DishAddModel = ({ open, handleClose, handleSuccess }: DishAddModelParams) 
 	);
 };
 
-export default DishAddModel;
+export default DishSetModal;

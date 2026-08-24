@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Form, Input, InputNumber, message, Modal } from "antd";
 import { categoryUpdate } from "@/services";
 import { MESSAGE } from "@/lib/constants";
-import type { CategoryModelData, CategorySetModelParams } from "@/types/components";
+import type { CategoryModalData, CategorySetModalParams } from "@/types/components";
 
-const CategorySetModel = ({ open, record, handleClose, handleSuccess }: CategorySetModelParams) => {
+const CategorySetModal = ({ open, record, handleClose, handleSuccess }: CategorySetModalParams) => {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const formFinish = (data: CategoryModelData) => {
+	const formFinish = (data: CategoryModalData) => {
 		if (!record) return;
 		setIsLoading(true);
 		categoryUpdate({
@@ -69,4 +69,4 @@ const CategorySetModel = ({ open, record, handleClose, handleSuccess }: Category
 	);
 };
 
-export default CategorySetModel;
+export default CategorySetModal;

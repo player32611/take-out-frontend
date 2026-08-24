@@ -9,7 +9,7 @@ import type {
 	DishStatusParams,
 	DishVO,
 	PageResult,
-} from "@/types/services";
+} from "@/types";
 
 export const dishAdd = (params: DishAddParams) => {
 	return post<void>("/admin/dish", params);

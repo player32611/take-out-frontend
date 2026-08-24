@@ -1,70 +1,69 @@
-import { useState } from "react";
-import { Button, Form, Input, message, Modal, Radio } from "antd";
-import { employeeAdd } from "@/services";
+import { useEffect, useState } from "react";
+import { employeeId, employeeUpdate } from "@/services";
+import { Form, Input, message, Modal, Radio } from "antd";
 import { MESSAGE } from "@/lib/constants";
-import type { EmployeeModelData, EmployeeAddModelParams } from "@/types/components";
+import type { EmployeeModalData, EmployeeSetModalParams } from "@/types/components";
 
 import PhoneInput from "@/components/common/PhoneInput";
 
-const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModelParams) => {
+const EmployeeSetModal = ({ open, id, handleClose, handleSuccess }: EmployeeSetModalParams) => {
 	const [form] = Form.useForm();
-	const [isLoading, setIsLoading] = useState(false);
-	const [isContinue, setIsContinue] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
-	const formFinish = (value: EmployeeModelData) => {
+	const formFinish = (data: EmployeeModalData) => {
+		if (!id) return;
 		setIsLoading(true);
-		employeeAdd({
-			idNumber: value.idNumber,
-			name: value.name,
-			phone: value.phone.phone,
-			sex: value.sex,
-			username: value.username,
+		employeeUpdate({
+			id,
+			idNumber: data.idNumber,
+			name: data.name,
+			phone: data.phone.phone,
+			sex: data.sex,
+			username: data.username,
 		})
 			.then(() => {
-				form.resetFields();
+				message.success(MESSAGE.UPDATE_SUCCESS);
 				handleSuccess();
-				message.success(MESSAGE.INSERT_SUCCESS);
-				if (!isContinue) {
-					handleClose();
-				}
+				handleClose();
 			})
 			.finally(() => {
-				setIsContinue(false);
 				setIsLoading(false);
 			});
 	};
 
-	const onContinue = () => {
-		setIsContinue(true);
-		form.submit();
-	};
+	useEffect(() => {
+		if (id && form) {
+			employeeId({ id })
+				.then(res => {
+					form.setFieldsValue({
+						name: res.data.name,
+						username: res.data.username,
+						phone: { phone: res.data.phone },
+						sex: res.data.sex,
+						idNumber: res.data.idNumber,
+					});
+				})
+				.finally(() => setIsLoading(false));
+		}
+	}, [open, id, form]);
 
 	return (
 		<Modal
-			title="添加员工"
+			title="修改员工信息"
 			open={open}
 			cancelText="取消"
 			onCancel={handleClose}
+			onOk={() => form.submit()}
 			okButtonProps={{ type: "primary", loading: isLoading }}
 			okText="保存"
-			onOk={() => form.submit()}
-			footer={(_, { OkBtn, CancelBtn }) => (
-				<>
-					<CancelBtn />
-					<OkBtn />
-					<Button type="primary" loading={isLoading} onClick={onContinue}>
-						保存并继续添加
-					</Button>
-				</>
-			)}
 		>
 			<Form
 				form={form}
-				name="employeeAdd"
-				onFinish={formFinish}
+				name="employeeSet"
 				initialValues={{
 					phone: { prefix: "86" },
 				}}
+				onFinish={formFinish}
 			>
 				<Form.Item
 					name="name"
@@ -109,4 +108,4 @@ const EmployeeAddModel = ({ open, handleClose, handleSuccess }: EmployeeAddModel
 	);
 };
 
-export default EmployeeAddModel;
+export default EmployeeSetModal;

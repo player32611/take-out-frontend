@@ -1,4 +1,5 @@
 import type {
+	Category,
 	CategoryAddParams,
 	CategoryDeleteParams,
 	CategoryListParams,
@@ -6,8 +7,7 @@ import type {
 	CategoryStatusParams,
 	CategoryUpdateParams,
 	PageResult,
-} from "@/types/services";
-import type { Category } from "@/types/common";
+} from "@/types";
 import { del, get, post, put } from "./axios";
 
 export const categoryPage = (params: CategoryPageParams) => {

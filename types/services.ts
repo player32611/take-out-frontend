@@ -1,4 +1,4 @@
-import { CategoryType, DishFlavor, Employee, Status } from "./common";
+import type { CategoryType, DishFlavor, Employee, Status } from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -162,4 +162,8 @@ export interface EmployeeUpdateParams {
 	phone: string;
 	sex: string;
 	username: string;
+}
+
+export interface ShopSetStatusParams {
+	status: Status;
 }

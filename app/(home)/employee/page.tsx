@@ -7,8 +7,8 @@ import { employeePage } from "@/services";
 import { PAGE_SIZE } from "@/lib/constants";
 import type { EmployeeTableData } from "@/types/components";
 
-import EmployeeAddModel from "@/components/employee/EmployeeAddModel";
-import EmployeeSetModel from "@/components/employee/EmployeeSetModel";
+import EmployeeAddModal from "@/components/employee/EmployeeAddModal";
+import EmployeeSetModal from "@/components/employee/EmployeeSetModal";
 import EmployeeTable from "@/components/employee/EmployeeTable";
 import style from "./employee.module.scss";
 
@@ -18,8 +18,8 @@ const Employee = () => {
 	const [total, setTotal] = useState<number>(0);
 	const [tableData, setTableData] = useState<EmployeeTableData[]>([]);
 	const [currentSetId, setCurrentSetId] = useState<number | null>(null);
-	const [addModelOpen, setAddModelOpen] = useState<boolean>(false);
-	const [setModelOpen, setSetModelOpen] = useState<boolean>(false);
+	const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
+	const [setModalOpen, setSetModalOpen] = useState<boolean>(false);
 	const [inputText, setInputText] = useState<string>("");
 
 	const handleRefresh = useCallback(
@@ -47,7 +47,7 @@ const Employee = () => {
 
 	const handleSet = useCallback((id: number) => {
 		setCurrentSetId(id);
-		setSetModelOpen(true);
+		setSetModalOpen(true);
 	}, []);
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ const Employee = () => {
 						enterButton
 					/>
 				</Space>
-				<Button type="primary" icon={<PlusOutlined />} onClick={() => setAddModelOpen(true)}>
+				<Button type="primary" icon={<PlusOutlined />} onClick={() => setAddModalOpen(true)}>
 					添加员工
 				</Button>
 			</Flex>
@@ -77,15 +77,15 @@ const Employee = () => {
 				handleRefresh={handleRefresh}
 				handleSet={handleSet}
 			></EmployeeTable>
-			<EmployeeAddModel
-				open={addModelOpen}
-				handleClose={() => setAddModelOpen(false)}
+			<EmployeeAddModal
+				open={addModalOpen}
+				handleClose={() => setAddModalOpen(false)}
 				handleSuccess={handleRefresh}
-			></EmployeeAddModel>
-			<EmployeeSetModel
-				open={setModelOpen}
+			></EmployeeAddModal>
+			<EmployeeSetModal
+				open={setModalOpen}
 				id={currentSetId}
-				handleClose={() => setSetModelOpen(false)}
+				handleClose={() => setSetModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
 		</div>
