@@ -182,6 +182,26 @@ export interface SetmealAddParams {
 	}[];
 }
 
+export interface SetmealPageParams {
+	categoryId?: number;
+	name?: string;
+	page: number;
+	pageSize: number;
+	status?: Status;
+}
+
+export interface SetmealPageVO {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	updateTime: string;
+	categoryName: string;
+}
+
 export interface ShopSetStatusParams {
 	status: Status;
 }

@@ -177,3 +177,25 @@ export interface SetmealAddModalParams {
 	handleClose: () => void;
 	handleSuccess: () => void;
 }
+
+export interface SetmealTableParams {
+	data: SetmealTableData[];
+	total: number;
+	handleRefresh: (page?: number) => void;
+	handleSet: (id: number) => void;
+	ref?: React.Ref<SetmealTableRef>;
+}
+
+export interface SetmealTableData {
+	key: number;
+	name: string;
+	image: string;
+	categoryName: string;
+	price: number;
+	status: Status;
+	updateTime: string;
+}
+
+export interface SetmealTableRef {
+	handleDelete: (id?: number) => void;
+}

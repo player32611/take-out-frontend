@@ -3,19 +3,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { categoryList, dishPage } from "@/services";
+import { categoryList, setmealPage } from "@/services";
 import { CATEGORY_TYPE, PAGE_SIZE, STATUS } from "@/lib/constants";
-import type { DishTableData, DishTableRef } from "@/types";
+import type { DishTableRef, SetmealTableData } from "@/types";
 import type { SelectProps } from "antd/es/select";
 
 import style from "./setmeal.module.scss";
-// import DishTable from "@/components/dish/DishTable";
+import SetmealTable from "@/components/setmeal/SetmealTable";
 import SetmealAddModal from "@/components/setmeal/SetmealAddModal";
 // import DishSetModal from "@/components/dish/DishSetModal";
 
 const Setmeal = () => {
 	const [total, setTotal] = useState<number>(0);
-	// const [tableData, setTableData] = useState<DishTableData[]>([]);
+	const [tableData, setTableData] = useState<SetmealTableData[]>([]);
 	const [currentSetId, setCurrentSetId] = useState<number | null>(null);
 	const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
 	const [setModalOpen, setSetModalOpen] = useState<boolean>(false);
@@ -28,26 +28,26 @@ const Setmeal = () => {
 
 	const handleRefresh = useCallback(
 		(page: number = 1) => {
-			// dishPage({
-			// 	categoryId: selectType || undefined,
-			// 	name: inputText,
-			// 	page,
-			// 	pageSize: PAGE_SIZE,
-			// 	status: selectStatus,
-			// }).then(res => {
-			// 	setTableData(
-			// 		res.data.records.map(record => ({
-			// 			key: record.id,
-			// 			name: record.name,
-			// 			image: record.image,
-			// 			categoryName: record.categoryName,
-			// 			price: record.price,
-			// 			status: record.status,
-			// 			updateTime: record.updateTime,
-			// 		})),
-			// 	);
-			// 	setTotal(res.data.total);
-			// });
+			setmealPage({
+				categoryId: selectType || undefined,
+				name: inputText,
+				page,
+				pageSize: PAGE_SIZE,
+				status: selectStatus,
+			}).then(res => {
+				setTableData(
+					res.data.records.map(record => ({
+						key: record.id,
+						name: record.name,
+						image: record.image,
+						categoryName: record.categoryName,
+						price: record.price,
+						status: record.status,
+						updateTime: record.updateTime,
+					})),
+				);
+				setTotal(res.data.total);
+			});
 			categoryList({ type: CATEGORY_TYPE.SET_MEAL }).then(res => {
 				setTypeList(
 					res.data.map(record => ({
@@ -118,13 +118,13 @@ const Setmeal = () => {
 					</Button>
 				</Space>
 			</Flex>
-			{/* <DishTable
+			<SetmealTable
 				data={tableData}
 				total={total}
 				handleRefresh={handleRefresh}
 				handleSet={handleSet}
 				ref={tableRef}
-			/> */}
+			/>
 			<SetmealAddModal
 				open={addModalOpen}
 				handleClose={() => setAddModalOpen(false)}
