@@ -106,6 +106,7 @@ const DishTable = ({ data, total, handleRefresh, handleSet, ref }: DishTablePara
 	return (
 		<Table
 			rowSelection={{ type: "checkbox", ...rowSelection }}
+			column={{ align: "center" }}
 			columns={columns}
 			dataSource={data}
 			pagination={{

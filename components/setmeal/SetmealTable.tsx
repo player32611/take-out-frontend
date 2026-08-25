@@ -104,6 +104,7 @@ const SetmealTable = ({ data, total, handleRefresh, handleSet, ref }: SetmealTab
 
 	return (
 		<Table
+			column={{ align: "center" }}
 			rowSelection={{ type: "checkbox", ...rowSelection }}
 			columns={columns}
 			dataSource={data}

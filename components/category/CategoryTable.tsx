@@ -86,6 +86,7 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 
 	return (
 		<Table
+			column={{ align: "center" }}
 			columns={columns}
 			dataSource={data}
 			pagination={{

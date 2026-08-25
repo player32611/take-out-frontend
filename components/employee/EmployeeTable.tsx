@@ -68,6 +68,7 @@ const EmployeeTable = ({ data, total, handleRefresh, handleSet }: EmployeeTableP
 
 	return (
 		<Table
+			column={{ align: "center" }}
 			columns={columns}
 			dataSource={data}
 			pagination={{

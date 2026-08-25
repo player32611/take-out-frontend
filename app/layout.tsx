@@ -2,7 +2,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 
 import "./globals.scss";
-import RouterProvider from "@/components/RouterProvider";
+import RouterProvider from "@/components/provider/RouterProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
