@@ -1,6 +1,6 @@
 import { useCallback, useState, useImperativeHandle } from "react";
 import { Image, message, Space, Table } from "antd";
-import { setmealStatus } from "@/services";
+import { setmealDelete, setmealStatus } from "@/services";
 import { MESSAGE } from "@/lib/constants";
 import type { TableProps } from "antd";
 import type { SetmealTableData, SetmealTableParams, Status as StatusType } from "@/types";
@@ -22,17 +22,17 @@ const SetmealTable = ({ data, total, handleRefresh, handleSet, ref }: SetmealTab
 
 	const handleDelete = useCallback(
 		(id?: number) => {
-			// if (id) {
-			// 	dishDelete({ ids: id.toString() }).then(() => {
-			// 		message.success(MESSAGE.DELETE_SUCCESS);
-			// 		handleRefresh();
-			// 	});
-			// } else if (selectKeys.length) {
-			// 	dishDelete({ ids: selectKeys.join(",") }).then(() => {
-			// 		message.success(MESSAGE.DELETE_SUCCESS);
-			// 		handleRefresh();
-			// 	});
-			// }
+			if (id) {
+				setmealDelete({ ids: id.toString() }).then(() => {
+					message.success(MESSAGE.DELETE_SUCCESS);
+					handleRefresh();
+				});
+			} else if (selectKeys.length) {
+				setmealDelete({ ids: selectKeys.join(",") }).then(() => {
+					message.success(MESSAGE.DELETE_SUCCESS);
+					handleRefresh();
+				});
+			}
 		},
 		[selectKeys, handleRefresh],
 	);

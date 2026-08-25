@@ -1,7 +1,8 @@
-import { get, post, put } from "./axios";
+import { del, get, post, put } from "./axios";
 import type {
 	PageResult,
 	SetmealAddParams,
+	SetmealDeleteParams,
 	SetmealIdParams,
 	SetmealPageParams,
 	SetmealPageVO,
@@ -28,4 +29,8 @@ export const setmealId = (params: SetmealIdParams) => {
 
 export const setmealUpdate = (params: SetmealUpdateParams) => {
 	return put<void>("/admin/setmeal", params);
+};
+
+export const setmealDelete = (params: SetmealDeleteParams) => {
+	return del<void>("/admin/setmeal", { params });
 };

@@ -12,27 +12,23 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 	const [dishList, setDishList] = useState<DishPageVO[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
-	const selectDishMap = useRef<
-		Map<number, { dishId: number; name: string; price: number; copies: number }>
-	>(new Map());
+	const selectDishes = useRef<{ dishId: number; name: string; price: number; copies: number }[]>(
+		[],
+	);
+
+	const formDishes: { dishId: number | undefined; copies: number }[] = Form.useWatch(
+		"setmealDishes",
+		form,
+	);
 
 	const dishOptions: SelectProps["options"] = dishList.map(record => ({
 		value: record.id,
 		label: record.name,
+		disabled: formDishes && formDishes.some(item => item.dishId === record.id),
 	}));
-
-	const setmealDishes: { dishId: number; copies: number }[] = Form.useWatch("setmealDishes", form);
 
 	const formFinish = useCallback(
 		(data: SetmealModalData) => {
-			console.log(
-				data,
-				[...selectDishMap.current].map(([, value]) => ({
-					dishId: value.dishId,
-					name: value.name,
-					price: value.price,
-				})),
-			);
 			setIsLoading(true);
 			setmealAdd({
 				name: data.name,
@@ -41,12 +37,7 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 				image: data.image[0].response,
 				description: data.description,
 				status: STATUS.DISABLED,
-				setmealDishes: [...selectDishMap.current].map(([idx, value]) => ({
-					dishId: value.dishId,
-					name: value.name,
-					price: value.price,
-					copies: data.setmealDishes[idx].copies,
-				})),
+				setmealDishes: selectDishes.current,
 			})
 				.then(() => {
 					form.resetFields();
@@ -70,22 +61,33 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 	const handleSelect = useCallback(
 		(name: number, dishId: number) => {
 			const dish = dishList?.find(record => record.id === dishId);
-			const copies = setmealDishes[name].copies;
+			const copies = formDishes[name].copies;
 			if (!dish || !copies) return;
-			selectDishMap.current.set(name, {
+			selectDishes.current[name] = {
 				dishId: dish.id,
 				name: dish.name,
 				price: dish.price,
 				copies,
-			});
+			};
 		},
-		[dishList, setmealDishes],
+		[dishList, formDishes],
+	);
+
+	const handleRemoveDish = useCallback(
+		(name: number, dishId: number | undefined, remove: (index: number) => void) => {
+			if (dishId === undefined) {
+				remove(name);
+				return;
+			}
+			selectDishes.current.splice(name, 1);
+			remove(name);
+		},
+		[],
 	);
 
 	const handleChangeCopies = useCallback((name: number, value: number | null) => {
-		const record = selectDishMap.current.get(name);
-		if (!record || !value) return;
-		record.copies = value;
+		if (!value) return;
+		selectDishes.current[name].copies = value;
 	}, []);
 
 	useEffect(() => {
@@ -100,7 +102,7 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 		dishPage({ page: 1, pageSize: PAGE_SIZE }).then(res => {
 			setDishList(res.data.records);
 		});
-	}, [open]);
+	}, [open, selectDishes, formDishes]);
 
 	return (
 		<Modal
@@ -167,9 +169,10 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 									rowGap: 16,
 								}}
 							>
-								{setmealDishes &&
+								{formDishes &&
 									fields.map(field => {
-										const item = setmealDishes[field.name];
+										const formValue = formDishes[field.name];
+										const currentDish = selectDishes.current[field.name];
 										return (
 											<Space key={field.key} style={{ width: "100%" }}>
 												<Form.Item noStyle name={[field.name, "dishId"]}>
@@ -186,14 +189,18 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 														mode="spinner"
 														min={1}
 														style={{ maxWidth: 130 }}
-														disabled={item?.dishId === undefined}
+														disabled={formValue?.dishId === undefined}
 														onChange={val => handleChangeCopies(field.name, val)}
 													/>
 												</Form.Item>
-												{item?.dishId !== undefined
-													? `原价：￥${(selectDishMap.current.get(field.name)?.price || 0) * (selectDishMap.current.get(field.name)?.copies || 0)}`
+												{formValue?.dishId !== undefined
+													? `原价：￥${(currentDish?.price || 0) * formValue.copies}`
 													: null}
-												<Button variant="link" color="danger" onClick={() => remove(field.name)}>
+												<Button
+													variant="link"
+													color="danger"
+													onClick={() => handleRemoveDish(field.name, currentDish?.dishId, remove)}
+												>
 													删除
 												</Button>
 											</Space>

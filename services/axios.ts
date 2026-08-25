@@ -69,6 +69,10 @@ request.interceptors.response.use(
 					message.error("请求的资源不存在");
 					break;
 
+				case 413:
+					message.error("数据过大");
+					break;
+
 				case 500:
 					message.error("服务器内部错误");
 					break;

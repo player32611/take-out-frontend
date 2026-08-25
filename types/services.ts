@@ -242,6 +242,10 @@ export interface SetmealUpdateParams {
 	}[];
 }
 
+export interface SetmealDeleteParams {
+	ids: string;
+}
+
 export interface ShopSetStatusParams {
 	status: Status;
 }
