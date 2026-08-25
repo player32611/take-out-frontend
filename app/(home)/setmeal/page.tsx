@@ -4,14 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { categoryList, setmealPage } from "@/services";
-import { CATEGORY_TYPE, PAGE_SIZE, STATUS } from "@/lib/constants";
+import { CATEGORY_TYPE, PAGE_SIZE, STATUS } from "@/lib";
 import type { DishTableRef, SetmealTableData } from "@/types";
 import type { SelectProps } from "antd/es/select";
 
 import style from "./setmeal.module.scss";
 import SetmealTable from "@/components/setmeal/SetmealTable";
 import SetmealAddModal from "@/components/setmeal/SetmealAddModal";
-// import DishSetModal from "@/components/dish/DishSetModal";
+import SetmealSetModal from "@/components/setmeal/SetmealSetModal";
 
 const Setmeal = () => {
 	const [total, setTotal] = useState<number>(0);
@@ -130,12 +130,12 @@ const Setmeal = () => {
 				handleClose={() => setAddModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
-			{/* <DishSetModal
+			<SetmealSetModal
 				open={setModalOpen}
 				id={currentSetId}
 				handleClose={() => setSetModalOpen(false)}
 				handleSuccess={handleRefresh}
-			/>  */}
+			/>
 		</div>
 	);
 };

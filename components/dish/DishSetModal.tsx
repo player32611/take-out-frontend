@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { categoryList, commonUpload, dishId, dishSave } from "@/services";
-import { DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib/constants";
-import type { DishModalData, DishSetModalParams } from "@/types/components";
-import type { SelectProps, UploadFile, UploadProps } from "antd";
+import { categoryList, commonUpload, dishId, dishUpdate } from "@/services";
+import { DISH_FLAVOR_OPTION, MESSAGE, STATUS } from "@/lib";
+import type { DishModalData, DishSetModalParams } from "@/types";
+import type { SelectProps, UploadProps } from "antd";
 
 const DishSetModal = ({ open, id, handleSuccess, handleClose }: DishSetModalParams) => {
 	const [form] = Form.useForm();
@@ -16,7 +16,7 @@ const DishSetModal = ({ open, id, handleSuccess, handleClose }: DishSetModalPara
 	const formFinish = (data: DishModalData) => {
 		if (!id) return;
 		setIsLoading(true);
-		dishSave({
+		dishUpdate({
 			id,
 			name: data.name,
 			categoryId: data.categoryId,
@@ -78,7 +78,7 @@ const DishSetModal = ({ open, id, handleSuccess, handleClose }: DishSetModalPara
 							name: res.data.name,
 							status: "done",
 							url: res.data.image,
-						} satisfies UploadFile,
+						},
 					],
 					description: res.data.description,
 				});

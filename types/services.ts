@@ -1,4 +1,4 @@
-import type { CategoryType, DishFlavor, Employee, Status } from "./common";
+import type { CategoryType, DishFlavor, Employee, SetmealDish, Status } from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -101,7 +101,7 @@ export interface DishIdParams {
 	id: number;
 }
 
-export interface DishSaveParams {
+export interface DishUpdateParams {
 	id: number;
 	name: string;
 	categoryId: number;
@@ -205,6 +205,41 @@ export interface SetmealPageVO {
 export interface SetmealStatusParams {
 	status: Status;
 	id: number;
+}
+
+export interface SetmealIdParams {
+	id: number;
+}
+
+export interface SetmealVO {
+	id: number;
+	name: string;
+	categoryId: number;
+	categoryName: string;
+	price: number;
+	image: string;
+	description: string;
+	status: Status;
+	updateTime: string;
+	setmealDishes: SetmealDish[];
+}
+
+export interface SetmealUpdateParams {
+	id: number;
+	name: string;
+	categoryId: number;
+	price: number;
+	image: string;
+	description?: string;
+	status: Status;
+	setmealDishes: {
+		copies: number;
+		id?: number;
+		dishId: number;
+		name: string;
+		price: number;
+		setmealId?: number;
+	}[];
 }
 
 export interface ShopSetStatusParams {

@@ -62,6 +62,15 @@ export interface Setmeal {
 	updateUser: number;
 }
 
+export interface SetmealDish {
+	id: number;
+	setmealId: number;
+	dishId: number;
+	name: string;
+	price: number;
+	copies: number;
+}
+
 export type Status = (typeof STATUS)[keyof typeof STATUS];
 
 export type CategoryType = (typeof CATEGORY_TYPE)[keyof typeof CATEGORY_TYPE];

@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { Button, Form, Input, InputNumber, message, Modal, Select, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { categoryList, dishPage, setmealAdd } from "@/services";
-import { fileUpload, CATEGORY_TYPE, MESSAGE, PAGE_SIZE, STATUS } from "@/lib";
-import type { SetmealAddModalParams, SetmealModalData, DishPageVO } from "@/types";
+import { categoryList, dishPage, setmealId, setmealUpdate } from "@/services";
+import { fileUpload, CATEGORY_TYPE, MESSAGE, STATUS, PAGE_SIZE } from "@/lib";
+import type { DishPageVO, SetmealModalData, SetmealSetModalParams } from "@/types";
 import type { SelectProps } from "antd";
 
-const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalParams) => {
-	const [form] = Form.useForm();
+const SetmealSetModal = ({ open, id, handleSuccess, handleClose }: SetmealSetModalParams) => {
+	const [form] = Form.useForm<SetmealModalData>();
 	const [typeList, setTypeList] = useState<SelectProps["options"]>([]);
 	const [dishList, setDishList] = useState<DishPageVO[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const selectDishMap = useRef<
 		Map<number, { dishId: number; name: string; price: number; copies: number }>
@@ -25,16 +25,10 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 
 	const formFinish = useCallback(
 		(data: SetmealModalData) => {
-			console.log(
-				data,
-				[...selectDishMap.current].map(([, value]) => ({
-					dishId: value.dishId,
-					name: value.name,
-					price: value.price,
-				})),
-			);
+			if (!id) return;
 			setIsLoading(true);
-			setmealAdd({
+			setmealUpdate({
+				id: id,
 				name: data.name,
 				categoryId: data.categoryId,
 				price: data.price,
@@ -50,7 +44,7 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 			})
 				.then(() => {
 					form.resetFields();
-					message.success(MESSAGE.INSERT_SUCCESS);
+					message.success(MESSAGE.UPDATE_SUCCESS);
 					handleSuccess();
 					handleClose();
 				})
@@ -58,7 +52,7 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 					setIsLoading(false);
 				});
 		},
-		[form, handleClose, handleSuccess],
+		[id, form, handleClose, handleSuccess],
 	);
 
 	const handleSearch = useCallback((value: string) => {
@@ -100,11 +94,41 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 		dishPage({ page: 1, pageSize: PAGE_SIZE }).then(res => {
 			setDishList(res.data.records);
 		});
-	}, [open]);
+		if (id) {
+			setmealId({ id }).then(res => {
+				form.setFieldsValue({
+					name: res.data.name,
+					categoryId: res.data.categoryId,
+					price: res.data.price,
+					setmealDishes: res.data.setmealDishes.map(record => ({
+						dishId: record.dishId,
+						copies: record.copies,
+					})),
+					image: [
+						{
+							uid: "-1",
+							name: res.data.name,
+							status: "done",
+							url: res.data.image,
+						},
+					],
+					description: res.data.description,
+				});
+				res.data.setmealDishes.forEach((record, index) => {
+					selectDishMap.current.set(index, {
+						dishId: record.dishId,
+						name: record.name,
+						price: record.price,
+						copies: record.copies,
+					});
+				});
+			});
+		}
+	}, [open, id, form]);
 
 	return (
 		<Modal
-			title="新建套餐"
+			title="修改套餐"
 			open={open}
 			cancelText="取消"
 			onCancel={handleClose}
@@ -115,7 +139,7 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 		>
 			<Form
 				form={form}
-				name="setmealAdd"
+				name="setmealSet"
 				onFinish={formFinish}
 				initialValues={{
 					phone: { prefix: "86" },
@@ -235,4 +259,4 @@ const SetmealAddModal = ({ open, handleClose, handleSuccess }: SetmealAddModalPa
 	);
 };
 
-export default SetmealAddModal;
+export default SetmealSetModal;

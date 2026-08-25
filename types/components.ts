@@ -178,6 +178,13 @@ export interface SetmealAddModalParams {
 	handleSuccess: () => void;
 }
 
+export interface SetmealSetModalParams {
+	open: boolean;
+	id: number | null;
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
 export interface SetmealTableParams {
 	data: SetmealTableData[];
 	total: number;
