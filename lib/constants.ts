@@ -1,6 +1,6 @@
 export const CATEGORY_TYPE = {
 	DISH: 1,
-	SET_MEAL: 2,
+	SETMEAL: 2,
 } as const;
 
 export const CATEGORY_TYPE_OPTIONS = [
@@ -10,7 +10,7 @@ export const CATEGORY_TYPE_OPTIONS = [
 	},
 	{
 		label: "套餐",
-		value: CATEGORY_TYPE.SET_MEAL,
+		value: CATEGORY_TYPE.SETMEAL,
 	},
 ];
 

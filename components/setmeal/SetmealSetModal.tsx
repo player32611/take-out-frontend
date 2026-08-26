@@ -83,7 +83,7 @@ const SetmealSetModal = ({ open, id, handleSuccess, handleClose }: SetmealSetMod
 	}, []);
 
 	useEffect(() => {
-		categoryList({ type: CATEGORY_TYPE.SET_MEAL }).then(res => {
+		categoryList({ type: CATEGORY_TYPE.SETMEAL }).then(res => {
 			setTypeList(
 				res.data.map(record => ({
 					label: record.name,
