@@ -95,13 +95,7 @@ const CategoryTable = ({ data, total, handleRefresh, handleSet }: CategoryTableP
 				showTotal: total => `共 ${total} 条`,
 				showSizeChanger: true,
 				showQuickJumper: true,
-				locale: {
-					items_per_page: "条/页",
-					jump_to: "跳至",
-					page: "页",
-				},
 			}}
-			locale={{ emptyText: "暂无数据" }}
 			onChange={pagination => {
 				const current = pagination.current ?? 1;
 				handleRefresh(current);

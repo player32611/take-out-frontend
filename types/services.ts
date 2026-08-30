@@ -1,4 +1,13 @@
-import type { CategoryType, DishFlavor, Employee, SetmealDish, Status } from "./common";
+import type {
+	CategoryType,
+	DishFlavor,
+	Employee,
+	OrderDetail,
+	Orders,
+	OrderStatus,
+	SetmealDish,
+	Status,
+} from "./common";
 
 export interface Response<T = unknown> {
 	code: number;
@@ -162,6 +171,57 @@ export interface EmployeeUpdateParams {
 	phone: string;
 	sex: string;
 	username: string;
+}
+
+export interface OrderSearchVO extends Orders {
+	orderDishes: string;
+}
+
+export interface OrderSearchParams {
+	beginTime?: string;
+	endTime?: string;
+	number?: string;
+	page: number;
+	pageSize: number;
+	phone?: string;
+	status?: OrderStatus;
+}
+
+export interface OrderDeliveryParams {
+	id: number;
+}
+
+export interface OrderConfirmParams {
+	id: number;
+}
+
+export interface OrderRejectionParams {
+	id: number;
+	rejectionReason: string;
+}
+
+export interface OrderCompleteParams {
+	id: number;
+}
+
+export interface OrderDetailsParams {
+	id: number;
+}
+
+export interface OrderCancelParams {
+	id: number;
+	cancelReason: string;
+}
+
+export interface OrderDetailsData extends Orders {
+	orderDishes: string;
+	orderDetailList: OrderDetail[];
+}
+
+export interface OrderStatisticsData {
+	confirmed: number;
+	deliveryInProgress: number;
+	toBeConfirmed: number;
 }
 
 export interface SetmealAddParams {

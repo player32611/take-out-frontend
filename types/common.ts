@@ -1,4 +1,4 @@
-import { CATEGORY_TYPE, STATUS, GENDER } from "@/lib/constants";
+import { CATEGORY_TYPE, STATUS, GENDER, ORDER_STATUS, PAY_METHOD } from "@/lib/constants";
 
 export interface Category {
 	id: number;
@@ -48,6 +48,45 @@ export interface Employee {
 	updateUser: number;
 }
 
+export interface Orders {
+	id: number;
+	number: string;
+	status: OrderStatus;
+	userId: number;
+	addressBookId: number;
+	orderTime: string;
+	checkoutTime: string;
+	payMethod: number;
+	payStatus: number;
+	amount: number;
+	remark: string;
+	userName: string | null;
+	phone: string;
+	address: string;
+	consignee: string;
+	cancelReason: string | null;
+	rejectionReason: string | null;
+	cancelTime: string | null;
+	estimatedDeliveryTime: string;
+	deliveryStatus: number;
+	deliveryTime: string | null;
+	packAmount: number;
+	tablewareNumber: number;
+	tablewareStatus: number;
+}
+
+export interface OrderDetail {
+	id: number;
+	name: string;
+	orderId: number;
+	dishId: number;
+	setmealId: number;
+	dishFlavor: string | null;
+	number: number;
+	amount: number;
+	image: string;
+}
+
 export interface Setmeal {
 	id: number;
 	name: string;
@@ -76,3 +115,7 @@ export type Status = (typeof STATUS)[keyof typeof STATUS];
 export type CategoryType = (typeof CATEGORY_TYPE)[keyof typeof CATEGORY_TYPE];
 
 export type Gender = (typeof GENDER)[keyof typeof GENDER];
+
+export type OrderStatus = (typeof ORDER_STATUS)[keyof typeof ORDER_STATUS];
+
+export type PayMethod = (typeof PAY_METHOD)[keyof typeof PAY_METHOD];

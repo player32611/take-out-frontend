@@ -49,6 +49,11 @@ export const MESSAGE = {
 	DELETE_SUCCESS: "删除成功",
 	UPDATE_SUCCESS: "修改成功",
 	INSERT_SUCCESS: "添加成功",
+	DELIVER_SUCCESS: "派送成功",
+	ORDER_CONFIRM_SUCCESS: "接单成功",
+	ORDER_COMPLETE_SUCCESS: "完成订单成功",
+	ORDER_CANCEL_SUCCESS: "取消成功",
+	ORDER_REJECT_SUCCESS: "拒单成功",
 } as const;
 
 export const DESCRIPTION = {
@@ -56,3 +61,17 @@ export const DESCRIPTION = {
 	SHOP_STATUS_DISABLE:
 		"当前餐厅处于打烊状态，仅接收营业时间内的预定订单，可点击营业中手动恢复营业状态",
 } as const;
+
+export const ORDER_STATUS = {
+	PENDING_PAYMENT: 1,
+	TO_BE_CONFIRMED: 2,
+	CONFIRMED: 3,
+	DELIVERY_IN_PROGRESS: 4,
+	COMPLETED: 5,
+	CANCELLED: 6,
+};
+
+export const PAY_METHOD = {
+	WECHAT: 1,
+	ALIPAY: 2,
+};

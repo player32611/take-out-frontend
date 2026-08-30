@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Flex, Layout, Select, Space, Tag } from "antd";
 import { ClockCircleFilled, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { STATUS } from "@/lib";

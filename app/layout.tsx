@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import "./globals.scss";
 import RouterProvider from "@/components/provider/RouterProvider";
+import ConfigProvider from "@/components/provider/ConfigProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -13,8 +14,10 @@ const RootLayout = ({ children }: React.PropsWithChildren) => (
 	<html lang="zh-CN">
 		<body>
 			<AntdRegistry>
-				<RouterProvider />
-				{children}
+				<ConfigProvider>
+					<RouterProvider />
+					{children}
+				</ConfigProvider>
 			</AntdRegistry>
 		</body>
 	</html>

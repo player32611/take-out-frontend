@@ -1,9 +1,8 @@
 import { message, Space, Table } from "antd";
 import { employeeStatus } from "@/services";
-import { MESSAGE, STATUS } from "@/lib/constants";
+import { MESSAGE, STATUS } from "@/lib";
 import type { TableProps } from "antd";
-import type { EmployeeTableData, EmployeeTableParams } from "@/types/components";
-import type { Status as StatusType } from "@/types/common";
+import type { Status as StatusType, EmployeeTableData, EmployeeTableParams } from "@/types";
 
 import Status from "../common/Status/Status";
 
@@ -77,13 +76,7 @@ const EmployeeTable = ({ data, total, handleRefresh, handleSet }: EmployeeTableP
 				showTotal: total => `共 ${total} 条`,
 				showSizeChanger: true,
 				showQuickJumper: true,
-				locale: {
-					items_per_page: "条/页",
-					jump_to: "跳至",
-					page: "页",
-				},
 			}}
-			locale={{ emptyText: "暂无数据" }}
 			onChange={pagination => {
 				const current = pagination.current ?? 1;
 				handleRefresh(current);

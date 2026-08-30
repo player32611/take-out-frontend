@@ -1,5 +1,5 @@
 import { UploadFile } from "antd";
-import type { CategoryType, Gender, Status } from "./common";
+import type { CategoryType, Gender, OrderStatus, Status } from "./common";
 
 export interface StatusParams {
 	status: Status;
@@ -152,6 +152,54 @@ export interface LoginFormData {
 
 export interface LoginFormParams {
 	handleChangeState: () => void;
+}
+
+export interface OrderDetailsModalParams {
+	open: boolean;
+	id: number | null;
+	handleRefresh: () => void;
+	handleClose: () => void;
+	handleReason: (id: number, type: "拒单" | "取消") => void;
+	ref?: React.Ref<OrderDetailsModalRef>;
+}
+
+export interface OrderDetailsModalRef {
+	renewData: () => void;
+}
+
+export interface OrderReasonModalParams {
+	open: boolean;
+	id: number | null;
+	type: "拒单" | "取消";
+	handleClose: () => void;
+	handleSuccess: () => void;
+}
+
+export interface OrderTableParams {
+	data: OrderTableData[];
+	total: number;
+	handleRefresh: (page?: number) => void;
+	handleCheck: (id: number) => void;
+	handleReason: (id: number, type: "拒单" | "取消") => void;
+}
+
+export interface OrderTableData {
+	key: number;
+	number: string;
+	status: OrderStatus;
+	userName: string;
+	phone: string;
+	address: string;
+	orderTime: string;
+	amount: number;
+}
+
+export interface OrderTabsParams {
+	tab: OrderStatus | 0;
+	confirmed: number;
+	deliveryInProgress: number;
+	toBeConfirmed: number;
+	handleChange: (tab: OrderStatus) => void;
 }
 
 export interface RegisterFormParams {

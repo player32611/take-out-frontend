@@ -34,9 +34,10 @@ const HomeSider = ({ collapsed }: HomeSiderParams) => {
 			label: "数据统计",
 		},
 		{
-			key: "3",
+			key: "/order",
 			icon: <ReconciliationFilled />,
 			label: "订单管理",
+			onClick: () => router.push("/order"),
 		},
 		{
 			key: "/setmeal",
