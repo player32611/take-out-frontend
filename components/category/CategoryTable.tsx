@@ -3,8 +3,7 @@ import { message, Space, Table } from "antd";
 import { categoryDelete, categoryStatus } from "@/services";
 import { CATEGORY_TYPE, MESSAGE, STATUS } from "@/lib/constants";
 import type { TableProps } from "antd";
-import type { CategoryTableData, CategoryTableParams } from "@/types/components";
-import type { Status as StatusType } from "@/types/common";
+import type { CategoryTableData, CategoryTableParams, Status as StatusType } from "@/types";
 
 import Status from "../common/Status/Status";
 

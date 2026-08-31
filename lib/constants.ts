@@ -75,3 +75,8 @@ export const PAY_METHOD = {
 	WECHAT: 1,
 	ALIPAY: 2,
 };
+
+export const REMINDER_STATUS = {
+	PAY: 1,
+	USER: 2,
+};

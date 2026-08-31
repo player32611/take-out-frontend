@@ -5,3 +5,4 @@ export * from "./employeeService";
 export * from "./orderService";
 export * from "./setmealService";
 export * from "./shopService";
+export * from "./websocketClient";

@@ -5,6 +5,7 @@ import type {
 	OrderDetail,
 	Orders,
 	OrderStatus,
+	ReminderStatus,
 	SetmealDish,
 	Status,
 } from "./common";
@@ -19,6 +20,8 @@ export interface PageResult<T = unknown> {
 	total: number;
 	records: T[];
 }
+
+export type WebSocketStatus = "CONNECTING" | "OPEN" | "CLOSING" | "CLOSED";
 
 export interface CategoryAddParams {
 	id?: number;
@@ -308,4 +311,10 @@ export interface SetmealDeleteParams {
 
 export interface ShopSetStatusParams {
 	status: Status;
+}
+
+export interface WebSocketMessageData {
+	message: string;
+	orderId: number;
+	type: ReminderStatus;
 }

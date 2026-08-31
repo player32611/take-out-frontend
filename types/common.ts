@@ -1,4 +1,11 @@
-import { CATEGORY_TYPE, STATUS, GENDER, ORDER_STATUS, PAY_METHOD } from "@/lib/constants";
+import {
+	CATEGORY_TYPE,
+	STATUS,
+	GENDER,
+	ORDER_STATUS,
+	PAY_METHOD,
+	REMINDER_STATUS,
+} from "@/lib/constants";
 
 export interface Category {
 	id: number;
@@ -119,3 +126,5 @@ export type Gender = (typeof GENDER)[keyof typeof GENDER];
 export type OrderStatus = (typeof ORDER_STATUS)[keyof typeof ORDER_STATUS];
 
 export type PayMethod = (typeof PAY_METHOD)[keyof typeof PAY_METHOD];
+
+export type ReminderStatus = (typeof REMINDER_STATUS)[keyof typeof REMINDER_STATUS];

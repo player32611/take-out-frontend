@@ -5,8 +5,7 @@ import { Button, Flex, Input, Select, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { categoryPage } from "@/services";
 import { CATEGORY_TYPE_OPTIONS, PAGE_SIZE } from "@/lib/constants";
-import type { CategoryTableData } from "@/types/components";
-import type { CategoryType } from "@/types/common";
+import type { CategoryTableData, CategoryType } from "@/types";
 
 import style from "./category.module.scss";
 import CategoryAddModal from "@/components/category/CategoryAddModal";
