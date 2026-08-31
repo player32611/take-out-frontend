@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Typography } from "antd";
-import { init, dispose } from "echarts";
+import { init, ECharts } from "echarts";
 import { reportUser } from "@/services";
 import type { ReportChartParams } from "@/types";
 
@@ -10,12 +10,13 @@ const { Title } = Typography;
 
 const ReportUserChart = ({ begin, end }: ReportChartParams) => {
 	const chartRef = useRef<HTMLDivElement | null>(null);
+	const chartInstance = useRef<ECharts | null>(null);
 
 	useEffect(() => {
-		const element = chartRef.current;
+		if (!chartRef.current) return;
+		chartInstance.current = init(chartRef.current);
 		reportUser({ begin, end }).then(res => {
-			const chart = init(element);
-			chart.setOption({
+			chartInstance.current?.setOption({
 				legend: {
 					orient: "horizontal",
 					left: "center",
@@ -44,11 +45,15 @@ const ReportUserChart = ({ begin, end }: ReportChartParams) => {
 					},
 				],
 			});
+
+			setTimeout(() => {
+				chartInstance.current?.resize();
+			}, 0);
 		});
 
 		return () => {
-			if (!element) return;
-			dispose(element);
+			chartInstance.current?.dispose();
+			chartInstance.current = null;
 		};
 	}, [begin, end]);
 

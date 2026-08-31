@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Flex, Statistic, Typography } from "antd";
-import { init, dispose } from "echarts";
+import { init, ECharts } from "echarts";
 import { reportOrders } from "@/services";
 import type { ReportChartParams } from "@/types";
 
@@ -14,15 +14,16 @@ const ReportOrdersChart = ({ begin, end }: ReportChartParams) => {
 	const [validCount, setValidCount] = useState<number>(0);
 
 	const chartRef = useRef<HTMLDivElement | null>(null);
+	const chartInstance = useRef<ECharts | null>(null);
 
 	useEffect(() => {
-		const element = chartRef.current;
+		if (!chartRef.current) return;
+		chartInstance.current = init(chartRef.current);
 		reportOrders({ begin, end }).then(res => {
 			setCompletionRate(res.data.orderCompletionRate);
 			setTotalCount(res.data.totalOrderCount);
 			setValidCount(res.data.validOrderCount);
-			const chart = init(element);
-			chart.setOption({
+			chartInstance.current?.setOption({
 				legend: {
 					orient: "horizontal",
 					left: "center",
@@ -51,11 +52,15 @@ const ReportOrdersChart = ({ begin, end }: ReportChartParams) => {
 					},
 				],
 			});
+
+			setTimeout(() => {
+				chartInstance.current?.resize();
+			}, 0);
 		});
 
 		return () => {
-			if (!element) return;
-			dispose(element);
+			chartInstance.current?.dispose();
+			chartInstance.current = null;
 		};
 	}, [begin, end]);
 

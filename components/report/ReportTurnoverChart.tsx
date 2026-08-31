@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Typography } from "antd";
-import { init, dispose } from "echarts";
+import { init, ECharts } from "echarts";
 import { reportTurnover } from "@/services";
 import type { ReportChartParams } from "@/types";
 
@@ -10,12 +10,12 @@ const { Title } = Typography;
 
 const ReportTurnoverChart = ({ begin, end }: ReportChartParams) => {
 	const chartRef = useRef<HTMLDivElement | null>(null);
+	const chartInstance = useRef<ECharts | null>(null);
 
 	useEffect(() => {
-		const element = chartRef.current;
+		chartInstance.current = init(chartRef.current);
 		reportTurnover({ begin, end }).then(res => {
-			const chart = init(element);
-			chart.setOption({
+			chartInstance.current?.setOption({
 				tooltip: {
 					show: true,
 				},
@@ -46,11 +46,15 @@ const ReportTurnoverChart = ({ begin, end }: ReportChartParams) => {
 					},
 				],
 			});
+
+			setTimeout(() => {
+				chartInstance.current?.resize();
+			}, 0);
 		});
 
 		return () => {
-			if (!element) return;
-			dispose(element);
+			chartInstance.current?.dispose();
+			chartInstance.current = null;
 		};
 	}, [begin, end]);
 
