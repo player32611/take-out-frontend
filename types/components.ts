@@ -206,6 +206,18 @@ export interface RegisterFormParams {
 	handleChangeState: () => void;
 }
 
+export type ReportTimeRange = "yesterday" | "7days" | "30days" | "week" | "month";
+
+export interface ReportTabsParams {
+	tab: ReportTimeRange;
+	handleChange: (tab: ReportTimeRange) => void;
+}
+
+export interface ReportChartParams {
+	begin: string;
+	end: string;
+}
+
 export interface SetmealModalData {
 	name: string;
 	categoryId: number;

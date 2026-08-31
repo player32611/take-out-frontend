@@ -41,13 +41,14 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 			<Layout>
 				<HomeSider collapsed={collapsed} />
 				<Layout>
-					<Content style={{ margin: "24px 16px 0" }}>
+					<Content style={{ margin: "24px 16px 0", display: "flex" }}>
 						<div
 							style={{
 								padding: 24,
 								minHeight: 360,
 								background: "#ffffff",
 								borderRadius: 8,
+								flex: 1,
 							}}
 						>
 							{children}

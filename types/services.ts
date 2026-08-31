@@ -227,6 +227,36 @@ export interface OrderStatisticsData {
 	toBeConfirmed: number;
 }
 
+export interface ReportParams {
+	begin: string;
+	end: string;
+}
+
+export interface ReportTurnoverData {
+	dateList: string;
+	turnoverList: string;
+}
+
+export interface ReportUserData {
+	dateList: string;
+	newUserList: string;
+	totalUserList: string;
+}
+
+export interface ReportOrdersData {
+	dateList: string;
+	orderCompletionRate: number;
+	orderCountList: string;
+	totalOrderCount: number;
+	validOrderCount: number;
+	validOrderCountList: string;
+}
+
+export interface ReportTop10Data {
+	nameList: string;
+	numberList: string;
+}
+
 export interface SetmealAddParams {
 	id?: number;
 	name: string;

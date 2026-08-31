@@ -11,7 +11,7 @@ import {
 	ReconciliationFilled,
 } from "@ant-design/icons";
 import { useRouter, usePathname } from "next/navigation";
-import type { HomeSiderParams } from "@/types/components";
+import type { HomeSiderParams } from "@/types";
 
 const { Sider } = Layout;
 
@@ -29,9 +29,10 @@ const HomeSider = ({ collapsed }: HomeSiderParams) => {
 			onClick: () => router.push("/"),
 		},
 		{
-			key: "2",
+			key: "/report",
 			icon: <BarChartOutlined />,
 			label: "数据统计",
+			onClick: () => router.push("/report"),
 		},
 		{
 			key: "/order",
