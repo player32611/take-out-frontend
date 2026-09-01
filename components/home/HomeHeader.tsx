@@ -45,8 +45,9 @@ const HomeHeader = ({ collapsed, status, setCollapsed, handleSetStart }: HomeHea
 	return (
 		<Header
 			style={{
+				padding: "0 20px",
 				display: "flex",
-				justifyContent: "space-between",
+				justifyContent: "space-around",
 				alignItems: "center",
 				gap: 10,
 				background: "#ffaa00",
@@ -55,7 +56,7 @@ const HomeHeader = ({ collapsed, status, setCollapsed, handleSetStart }: HomeHea
 			<Flex gap={10} style={{ cursor: "pointer" }} onClick={() => router.push("/")}>
 				<GithubFilled style={{ fontSize: 30 }} />
 				<Title level={3} style={{ margin: 0 }}>
-					开源购物
+					开源菜品购物
 				</Title>
 			</Flex>
 			<Flex align="center" justify="space-between" style={{ flex: 1 }}>

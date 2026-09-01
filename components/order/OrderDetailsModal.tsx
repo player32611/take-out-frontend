@@ -205,8 +205,11 @@ const OrderDetailsModal = ({
 			<Descriptions items={items} column={2} colon={false} style={{ marginBottom: 10 }} />
 			{orderData?.orderDetailList.map(dish => (
 				<Row key={dish.id}>
-					<Col className={style.col} span={12}>
+					<Col className={style.col} span={6}>
 						{dish.name}
+					</Col>
+					<Col className={style.col} span={6}>
+						{dish.dishFlavor}
 					</Col>
 					<Col className={style.col} span={6}>
 						×{dish.number}
