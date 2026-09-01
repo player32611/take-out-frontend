@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Layout } from "antd";
+import { shopGetStatus } from "@/services";
 import type { Status } from "@/types";
 
 import HomeHeader from "./HomeHeader";
 import HomeSider from "./HomeSider";
 import HomeSetModal from "./HomeSetModal";
-import { shopGetStatus } from "@/services";
 
 const { Content, Footer } = Layout;
 
@@ -31,24 +31,33 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 	}, [handleRefresh]);
 
 	return (
-		<>
+		<Layout
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				height: "100vh",
+				width: "100vw",
+				maxHeight: "100vh",
+				maxWidth: "100vw",
+			}}
+		>
 			<HomeHeader
 				collapsed={collapsed}
 				status={shopStatus}
 				setCollapsed={setCollapsed}
 				handleSetStart={handleSet}
 			/>
-			<Layout>
+			<div style={{ flex: 1, display: "flex", height: "calc(100% - 64px)" }}>
 				<HomeSider collapsed={collapsed} />
-				<Layout>
-					<Content style={{ margin: "24px 16px 0", display: "flex" }}>
+				<Layout style={{ display: "flex", flexDirection: "column", maxHeight: "100%" }}>
+					<Content style={{ flex: 1, margin: "16px 16px 0" }}>
 						<div
 							style={{
 								padding: 24,
-								minHeight: 360,
+								height: "100%",
 								background: "#ffffff",
 								borderRadius: 8,
-								flex: 1,
+								overflow: "auto",
 							}}
 						>
 							{children}
@@ -56,14 +65,14 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
 					</Content>
 					<Footer style={{ textAlign: "center" }}>Ant Design ©2026 Created by Ant UED</Footer>
 				</Layout>
-			</Layout>
+			</div>
 			<HomeSetModal
 				open={modalOpen}
 				status={shopStatus}
 				handleClose={() => setModalOpen(false)}
 				handleSuccess={handleRefresh}
 			/>
-		</>
+		</Layout>
 	);
 };
 

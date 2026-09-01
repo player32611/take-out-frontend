@@ -1,12 +1,11 @@
 "use client";
 
-import { Layout, notification } from "antd";
+import { notification } from "antd";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { REMINDER_STATUS } from "@/lib";
 import type { WebSocketMessageData } from "@/types";
 
 import HomeLayout from "@/components/home/HomeLayout";
-import style from "./home.module.scss";
 
 const Home = ({ children }: { children: React.ReactNode }) => {
 	const [api, contextHolder] = notification.useNotification();
@@ -36,10 +35,10 @@ const Home = ({ children }: { children: React.ReactNode }) => {
 	});
 
 	return (
-		<Layout className={style.home}>
+		<>
 			{contextHolder}
 			<HomeLayout>{children}</HomeLayout>
-		</Layout>
+		</>
 	);
 };
 

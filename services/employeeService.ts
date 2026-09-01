@@ -35,3 +35,7 @@ export const employeeId = (params: EmployeeIdParams) => {
 export const employeeUpdate = (params: EmployeeUpdateParams) => {
 	return put<void>(`/admin/employee`, params);
 };
+
+export const employeeLogout = () => {
+	return post<void>(`/admin/employee/logout`);
+};

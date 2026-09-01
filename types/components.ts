@@ -150,10 +150,6 @@ export interface LoginFormData {
 	remember: boolean;
 }
 
-export interface LoginFormParams {
-	handleChangeState: () => void;
-}
-
 export interface OrderDetailsModalParams {
 	open: boolean;
 	id: number | null;

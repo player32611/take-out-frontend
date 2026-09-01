@@ -73,7 +73,7 @@ const HomeSider = ({ collapsed }: HomeSiderParams) => {
 				mode="inline"
 				selectedKeys={[selectedKey]}
 				items={items}
-				style={{ height: "100vh" }}
+				style={{ height: "100%" }}
 			/>
 		</Sider>
 	);

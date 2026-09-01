@@ -1,14 +1,13 @@
 "use client";
 
-import { employeeLogin } from "@/services";
-import type { LoginFormData, LoginFormParams } from "@/types/components";
-import { setToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-
+import { employeeLogin } from "@/services";
+import { setName, setToken } from "@/lib";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
+import type { LoginFormData } from "@/types";
 
-const LoginForm = ({ handleChangeState }: LoginFormParams) => {
+const LoginForm = () => {
 	const router = useRouter();
 	const [form] = Form.useForm();
 
@@ -16,6 +15,7 @@ const LoginForm = ({ handleChangeState }: LoginFormParams) => {
 		employeeLogin({ username: values.username, password: values.password }).then(res => {
 			if (res.data) {
 				setToken(res.data.token);
+				setName(res.data.username);
 				router.push("/");
 			} else form.setFields([{ name: "password", errors: [res.msg] }]);
 		});
@@ -40,7 +40,6 @@ const LoginForm = ({ handleChangeState }: LoginFormParams) => {
 					<Form.Item name="remember" valuePropName="checked" noStyle>
 						<Checkbox>记住我</Checkbox>
 					</Form.Item>
-					<a href="">忘记密码？</a>
 				</Flex>
 			</Form.Item>
 
@@ -48,7 +47,6 @@ const LoginForm = ({ handleChangeState }: LoginFormParams) => {
 				<Button block type="primary" htmlType="submit">
 					登录
 				</Button>
-				或者 <a onClick={handleChangeState}>立即注册!</a>
 			</Form.Item>
 		</Form>
 	);
