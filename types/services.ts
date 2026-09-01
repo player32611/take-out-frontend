@@ -348,3 +348,29 @@ export interface WebSocketMessageData {
 	orderId: number;
 	type: ReminderStatus;
 }
+
+export interface WorkspaceBusinessData {
+	newUsers: number;
+	orderCompletionRate: number;
+	turnover: number;
+	unitPrice: number;
+	validOrderCount: number;
+}
+
+export interface WorkspaceOrdersData {
+	allOrders: number;
+	cancelledOrders: number;
+	completedOrders: number;
+	deliveredOrders: number;
+	waitingOrders: number;
+}
+
+export interface WorkspaceDishesData {
+	discontinued: number;
+	sold: number;
+}
+
+export interface WorkspaceSetmealsData {
+	discontinued: number;
+	sold: number;
+}

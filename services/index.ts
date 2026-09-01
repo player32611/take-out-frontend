@@ -7,3 +7,4 @@ export * from "./reportService";
 export * from "./setmealService";
 export * from "./shopService";
 export * from "./websocketClient";
+export * from "./workspaceService";

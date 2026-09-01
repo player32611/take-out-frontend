@@ -71,7 +71,7 @@ const HomeSider = ({ collapsed }: HomeSiderParams) => {
 			<Menu
 				theme="dark"
 				mode="inline"
-				defaultSelectedKeys={[selectedKey]}
+				selectedKeys={[selectedKey]}
 				items={items}
 				style={{ height: "100vh" }}
 			/>
