@@ -12,6 +12,7 @@ import style from "./report.module.scss";
 import ReportUserChart from "@/components/report/ReportUserChart";
 import ReportOrdersChart from "@/components/report/ReportOrdersChart";
 import ReportTop10Chart from "@/components/report/ReportTop10Chart";
+import { reportExport } from "@/services";
 
 const Report = () => {
 	const [selectTab, setSelectTab] = useState<ReportTimeRange>("yesterday");
@@ -40,11 +41,34 @@ const Report = () => {
 		}
 	}, []);
 
+	const handleExport = useCallback(() => {
+		reportExport().then(res => {
+			const blob = new Blob([res.data], {
+				type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+			});
+
+			console.log(res.data.text());
+			const url = window.URL.createObjectURL(blob);
+
+			const link = document.createElement("a");
+
+			link.href = url;
+
+			link.download = "报表.xlsx";
+
+			link.click();
+
+			window.URL.revokeObjectURL(url);
+		});
+	}, []);
+
 	return (
 		<Flex className={style.report} vertical>
 			<Flex align="center" justify="space-between">
 				<ReportTabs tab={selectTab} handleChange={handleChangeTab} />
-				<Button icon={<UploadOutlined />}>数据导出</Button>
+				<Button icon={<UploadOutlined />} onClick={handleExport}>
+					数据导出
+				</Button>
 			</Flex>
 			<Row style={{ flex: 1 }}>
 				<Col span={12}>

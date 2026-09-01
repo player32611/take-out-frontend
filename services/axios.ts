@@ -33,6 +33,11 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
 	response => {
+		// 文件下载
+		if (response.config.responseType === "blob" || response.config.responseType === "arraybuffer") {
+			return response;
+		}
+
 		const res = response.data;
 
 		if (res.code === 200) {

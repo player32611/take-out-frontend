@@ -22,3 +22,9 @@ export const reportOrders = (params: ReportParams) => {
 export const reportTop10 = (params: ReportParams) => {
 	return get<ReportTop10Data>("/admin/report/top10", { params });
 };
+
+export const reportExport = () => {
+	return get<Blob>("/admin/report/export", {
+		responseType: "blob",
+	});
+};
